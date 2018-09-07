@@ -2,8 +2,8 @@
 
 Grayscale image augmentator for machine learning
 
-We all know that deep learning models are data hungry. They thrive when given many training examples.
-This data augmentation tool enlarges your dataset of images by generating multiple version of each image. 
+We all know that deep learning models are data hungry. They thrive when given many training examples.\
+This data augmentation tool enlarges your dataset of images by generating multiple version of each image.\
 It is conceived to help you getting more data, if...well you don't actually have "more data".
 
 - Input: grayscale photos or scan to documents, certificates, pages, receipts...
