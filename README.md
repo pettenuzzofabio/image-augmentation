@@ -6,15 +6,12 @@ We all know that deep learning models are data hungry. They thrive when given ma
 This data augmentation tool enlarges your dataset of images by generating multiple version of each image. 
 It is conceived to help you getting more data, if...well you don't actually have "more data".
 
-Input: grayscale photos or scan to documents, certificates, pages, receipts...
-Output: transform images by simulating different lighting conditions, slight changes in picture perspective, minor crumples and warps
+- Input: grayscale photos or scan to documents, certificates, pages, receipts...
+- Output: transform images by simulating different lighting conditions, slight changes in picture perspective, minor crumples and warps
 
 Invariants that should be preserved:
  - the position of the objects contained with respect to the size of the image
  - the proportions of the image
-
-
-
 
 
 <!--
