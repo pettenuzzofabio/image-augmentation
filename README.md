@@ -32,4 +32,4 @@ But it can be used to train other convolutional neural networks and should both 
 
 -->
 
-
+## WIP, release of version 1.0 estimate for the end of September 2018
