@@ -7,7 +7,7 @@ import cv2
 import noise
 import constants
 
-def add_n_random_shadows(image, n = randint(1, 9), intensity_scale = 1, blur_scale = 1.0):
+def add_n_random_shadows(image, n, intensity_scale = 1, blur_scale = 1.0):
 	for i in range(n):
 		intensity = np.random.uniform(0.3, 0.7) * intensity_scale
 		blur_width = noise.get_blur_given_intensity(intensity, blur_scale)
@@ -23,12 +23,12 @@ def add_n_random_shadows(image, n = randint(1, 9), intensity_scale = 1, blur_sca
 			image = add_single_shadow(image, intensity, blur_width)
 	return image
 
-def add_n_triangles_light(image, n = randint(1, 9), intensity = 0.5, blur_width = 6):
+def add_n_triangles_light(image, n, intensity = 0.5, blur_width = 6):
 	inverted_colors = constants.WHITE - image
 	inverted_shadow = add_n_triangles_shadow(inverted_colors, n, intensity, blur_width)
 	return constants.WHITE - inverted_shadow
 
-def add_n_triangles_shadow(image, n = randint(1, 9), intensity = 0.5, blur_width = 6):
+def add_n_triangles_shadow(image, n, intensity = 0.5, blur_width = 6):
 	for i in range(n):
 		image = add_polygon_shadow(image, 3, intensity, blur_width)
 	return image
