@@ -64,7 +64,7 @@ def add_single_light(image, intensity = 0.5, blur_width = 8):
 	return constants.WHITE - inverted_shadow
 
 def add_single_shadow(image, intensity = 0.5, blur_width = 8):
-	h, w = image.shape
+	h, w = image.shape[:2]
 	top_y = __get_random_number(w)
 	top_x = __get_random_number(h)
 	bot_x = __get_random_number(h)
@@ -151,7 +151,7 @@ def add_single_shadow(image, intensity = 0.5, blur_width = 8):
 
 def __get_points(n_sides, image):
 	points = []
-	h, w = image.shape
+	h, w = image.shape[:2]
 	for i in range(n_sides):
 		points.append([np.int32(w * 1.5 * np.random.uniform() - w * 0.25),
 					   np.int32(h * 1.5 * np.random.uniform() - h * 0.25)])

@@ -35,11 +35,11 @@ def get_blur_given_intensity(intensity, blur_scale):
 
 # 1 <= var <= 100
 def get_gauss_noise(image, var = 1):
-	row, col = image.shape
+	h, w = image.shape[:2]
 	mean = 0
 	sigma = var ** 0.5
-	gauss = np.random.normal(mean, sigma, (row, col))
-	gauss = gauss.reshape(row, col)
+	gauss = np.random.normal(mean, sigma, (h, w))
+	gauss = gauss.reshape(h, w)
 	return image + gauss
 
 # tip: use it as first transformation, apply other noises afterwards
@@ -60,13 +60,13 @@ def get_saltpepper_noise(image, amount = 0.0001):
 # tip: use it as first transformation, apply other noises afterwards
 # 0.01 < intensity < 0.3
 def get_speckle_noise(image, intensity = 0.1):
-	row, col = image.shape
+	h, w = image.shape[:2]
 	min_matrix = 0 * image
 	max_matrix = min_matrix + 255.0
 	intensity *= 127.5
 
-	speckle = -intensity/2 + np.random.randn(row,col) * intensity # -intensity/2 <= x <= intensity/2
-	speckle = speckle.reshape(row, col)
+	speckle = -intensity/2 + np.random.randn(h,w) * intensity # -intensity/2 <= x <= intensity/2
+	speckle = speckle.reshape(h, w)
 	speckle = image + speckle
 	speckle = np.minimum(speckle, max_matrix)
 	return np.maximum(speckle, min_matrix)
