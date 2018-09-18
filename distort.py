@@ -58,8 +58,8 @@ def skew_image(image, factor):
 	transform_matrix = cv2.getPerspectiveTransform(points1, points2)
 	return cv2.warpPerspective(image, transform_matrix, (w, h))
 
-def get_random_warp(image):
-	factor = randint(14, 40)
+def get_random_warp(image, max_factor = 50, min_factor = 14):
+	factor = randint(min_factor, max_factor)
 	return warp_image(image, factor)
 
 def warp_image(image, factor):
@@ -67,8 +67,8 @@ def warp_image(image, factor):
 	factor = __normalize_factor(factor, h, w)
 	x_center, y_center = __get_random_warp_center(factor, h, w)
 	wave_length = factor * 36 * randint(1, 4)
-	warp_type = np.random.choice(['X', 'Y', 'X_AND_Y'])
-	print(warp_type)
+	warp_direction = np.random.choice(['X', 'Y', 'X_AND_Y'])
+	print(warp_direction)
 	image_output = np.zeros(image.shape, dtype = image.dtype)
 
 	for y in range(h):
@@ -79,12 +79,12 @@ def warp_image(image, factor):
 			if(wave_intensity > 0):
 				offset_x = __get_offset(y, wave_intensity, wave_length)
 				offset_y = __get_offset(x, wave_intensity, wave_length)
-				if(warp_type == 'X_AND_Y'):
-					image_output[y, x] = image[(y + offset_y) % h, (x + offset_x) % w]
-				elif(warp_type == 'X'):
+				if(warp_direction == 'X'):
 					image_output[y, x] = image[y, (x + offset_x) % w]
-				elif(warp_type == 'Y'):
+				elif(warp_direction == 'Y'):
 					image_output[y, x] = image[(y + offset_y) % h, x]
+				else:
+					image_output[y, x] = image[(y + offset_y) % h, (x + offset_x) % w]
 			else:
 				image_output[y, x] = image[y, x]
 	return image_output
