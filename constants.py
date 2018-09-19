@@ -3,8 +3,14 @@
 
 from enum import Enum
 import random
-import time
 
+# CONSTANTS MEANT TO BE EDITED
+N_FILES_OUTPUT = 10
+IMAGE_EXTENSIONS = [ ".jpg", ".jpeg", ".png" ]
+FILES_INPUT_PATH = "./input/"
+FILES_OUTPUT_PATH = "./output/"
+
+# PAY ATTENTION BEFORE EDITING THE FOLLOWING CONSTANTS
 BLACK		= 0
 LIGHT_BLACK	= 50
 DARK_GRAY	= 100
