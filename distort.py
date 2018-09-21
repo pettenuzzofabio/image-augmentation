@@ -23,11 +23,10 @@ def __get_random_shear_direction(max_factor):
 def shear_image(image, factor):
 	_, w = image.shape[ : 2]
 	afine_tf = tf.AffineTransform(shear = factor)
-	modified = tf.warp(mat, inverse_map = afine_tf)
-	modified = img_as_ubyte(modified)
+	modified = tf.warp(image, inverse_map = afine_tf, preserve_range=True).astype(np.uint8)
 	crop_factor = 0.7
 
-	if(__get_shear_direction(factor)):
+	if (__get_shear_direction(factor)):
 		return modified[ :, int(factor * w * crop_factor) : ]
 	else:
 		return modified[ :, : w-int(-1 * factor * w * crop_factor) ]
@@ -46,11 +45,11 @@ def skew_image(image, factor):
 	points1 = np.float32([[0, 0], [w, 0], [0, h], [w, h]])
 
 	direction = np.random.choice(['UP', 'DOWN', 'LEFT', 'RIGHT'])
-	if(direction == 'UP'):
+	if (direction == 'UP'):
 		points2 = np.float32([[0, 0], [w, 0], [int(w * factor), h], [w - int(w * factor), h]])
-	elif(direction == 'LEFT'):
+	elif (direction == 'LEFT'):
 		points2 = np.float32([[0, 0], [w, int(h * factor)], [0, h], [w, int(h - h * factor)]])
-	elif(direction == 'RIGHT'):
+	elif (direction == 'RIGHT'):
 		points2 = np.float32([[0, int(h * factor)], [w, 0], [0, int(h - h * factor)], [w, h]])
 	else:
 		points2 = np.float32([[int(w * factor), 0], [w - int(w * factor), 0], [0, h], [w, h]])
@@ -68,7 +67,6 @@ def warp_image(image, factor):
 	x_center, y_center = __get_random_warp_center(factor, h, w)
 	wave_length = factor * 36 * randint(1, 4)
 	warp_direction = np.random.choice(['X', 'Y', 'X_AND_Y'])
-	print(warp_direction)
 	image_output = np.zeros(image.shape, dtype = image.dtype)
 
 	for y in range(h):
@@ -76,12 +74,12 @@ def warp_image(image, factor):
 			distance_from_center = __get_manhattan_distance(x, y, x_center, y_center)
 			wave_intensity = __get_wave_intensity(distance_from_center, factor)
 
-			if(wave_intensity > 0):
+			if (wave_intensity > 0):
 				offset_x = __get_offset(y, wave_intensity, wave_length)
 				offset_y = __get_offset(x, wave_intensity, wave_length)
-				if(warp_direction == 'X'):
+				if (warp_direction == 'X'):
 					image_output[y, x] = image[y, (x + offset_x) % w]
-				elif(warp_direction == 'Y'):
+				elif (warp_direction == 'Y'):
 					image_output[y, x] = image[(y + offset_y) % h, x]
 				else:
 					image_output[y, x] = image[(y + offset_y) % h, (x + offset_x) % w]
