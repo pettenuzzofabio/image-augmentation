@@ -7,7 +7,7 @@ import cv2
 import noise
 import constants
 
-def add_n_random_shadows(image, n, intensity_scale = 1, blur_scale = 1.0):
+def add_n_random_shadows(image, n = 4, intensity_scale = 1, blur_scale = 1.0):
 	for i in range(n):
 		intensity = np.random.uniform(0.3, 0.7) * intensity_scale
 		blur_width = noise.get_blur_given_intensity(intensity, blur_scale)
@@ -64,18 +64,18 @@ def add_single_light(image, intensity = 0.5, blur_width = 8):
 	return constants.WHITE - inverted_shadow
 
 def add_single_shadow(image, intensity = 0.5, blur_width = 8):
-	h, w = image.shape[:2]
+	h, w = image.shape[ : 2]
 	top_y = __get_random_number(w)
 	top_x = __get_random_number(h)
 	bot_x = __get_random_number(h)
 	bot_y = __get_random_number(w)
-	x_m = np.mgrid[0:h, 0:w][0]
-	y_m = np.mgrid[0:h, 0:w][1]
+	x_m = np.mgrid[0 : h, 0 : w][0]
+	y_m = np.mgrid[0 : h, 0 : w][1]
 	shadow_mask = 0 * image
 	shadow_mask[((x_m - top_x)*(bot_y - top_y) - (bot_x - top_x)*(y_m - top_y) >= 0)] = constants.DARK_GRAY
 
 	space = 50
-	if(bot_x < top_x and top_y > bot_y):
+	if (bot_x < top_x and top_y > bot_y):
 		shadow_mask[((x_m - top_x) * (bot_y - top_y) - (bot_x - top_x) * (y_m - top_y) < 0)] = constants.LIGHT_BLACK
 		top_x -= __get_random_space(space)
 		bot_x -= __get_random_space(space)
