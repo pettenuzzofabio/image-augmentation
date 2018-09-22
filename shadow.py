@@ -2,10 +2,12 @@
 # -*- coding: UTF-8 -*-
 
 from random import randint
-import numpy as np
+
+import constants
 import cv2
 import noise
-import constants
+import numpy as np
+
 
 def add_n_random_shadows(image, n = 4, intensity_scale = 1, blur_scale = 1.0):
 	for i in range(n):

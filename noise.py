@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+from random import randint
+
+import constants
 import cv2
 import numpy as np
-from random import randint
-import constants
+
 
 def add_n_random_blur(image, n = randint(1, 4)):
 	for i in range(n):

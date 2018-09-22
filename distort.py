@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-from random import randint
-import cv2
 import math
+from random import randint
+
+import cv2
 import numpy as np
 from skimage import img_as_ubyte
 from skimage import transform as tf
+
 
 # those should be performed as last transformations,
 # after we have precisely detect our landmark in the original image

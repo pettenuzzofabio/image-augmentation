@@ -2,12 +2,14 @@
 # -*- coding: UTF-8 -*-
 
 import random
-import constants
-import numpy as np
-from PIL import ImageEnhance, Image
+
 import channels
-import shadow
+import constants
 import cv2
+import numpy as np
+import shadow
+from PIL import ImageEnhance, Image
+
 
 def get_enhanced_image(image, enhancement = None):
 	if (enhancement == None):

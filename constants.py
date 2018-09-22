@@ -1,33 +1,35 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-from enum import Enum
 import random
+
+from enum import Enum
+
 
 ### CONSTANTS MEANT TO BE EDITED ###
 
-N_FILES_OUTPUT                      = 10
-IMAGE_EXTENSIONS                    = [".jpg", ".jpeg", ".png"]
-FILES_INPUT_PATH                    = "./input/"
-FILES_OUTPUT_PATH                   = "./output/"
+N_FILES_OUTPUT    = 10
+IMAGE_EXTENSIONS  = [".jpg", ".jpeg", ".png"]
+FILES_INPUT_PATH  = "./input/"
+FILES_OUTPUT_PATH = "./output/"
 # Probability that each transformation
 PROBABILITY_TRANSFORMATION_GETS_APPLIED  = 1.0
 
-class CounterMaxTransformations:
-    SALT_PEPPER_NOISE   = 0
-    SPECKLE_NOISE       = 0
-    GAUSS_NOISE         = 0
-    BLUR                = 0
-    SHADOW              = 0
-    ENHANCEMENTS        = 0
-    SHADE_COLORS        = 0
+class MaxTransformations:
+    SALT_PEPPER_NOISE   = 1
+    SPECKLE_NOISE       = 1
+    GAUSS_NOISE         = 1
+    BLUR                = 1
+    SHADOW              = 1
+    ENHANCEMENTS        = 1
+    SHADE_COLORS        = 1
 
     # The following transformations
     # alter pixel coordinates
     SHEAR               = 1
-    SKEW                = 0
-    WARP                = 0
-    ROTATION            = 0
+    SKEW                = 1
+    WARP                = 1
+    ROTATION            = 1
 
 MIN_BLUR 				= 1
 MAX_BLUR 				= 3
