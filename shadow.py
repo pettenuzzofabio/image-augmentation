@@ -8,10 +8,12 @@ import cv2
 import noise
 import numpy as np
 
+def add_n_random_shadows(image, n = 4, blur_scale = 1.0):
+	intensity = np.random.uniform(constants.MIN_SHADOW, constants.MAX_SHADOW)
+	return add_n_shadows(image, n, intensity, blur_scale)
 
-def add_n_random_shadows(image, n = 4, intensity_scale = 1, blur_scale = 1.0):
+def add_n_shadows(image, n = 4, intensity = 0.5, blur_scale = 1.0):
 	for i in range(n):
-		intensity = np.random.uniform(0.3, 0.7) * intensity_scale
 		blur_width = noise.get_blur_given_intensity(intensity, blur_scale)
 
 		choice = np.random.uniform(0, 4)
@@ -21,7 +23,7 @@ def add_n_random_shadows(image, n = 4, intensity_scale = 1, blur_scale = 1.0):
 			image = add_n_triangles_light(image, 1, intensity, blur_width)
 		elif (choice < 3):
 			image = add_single_light(image, intensity, blur_width)
-		elif (choice < 4):
+		else:
 			image = add_single_shadow(image, intensity, blur_width)
 	return image
 
