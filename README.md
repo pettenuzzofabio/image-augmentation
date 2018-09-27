@@ -1,4 +1,4 @@
-# Image augmentator
+# Image augmentation
 
 Grayscale image augmentation for machine learning
 
