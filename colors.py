@@ -17,13 +17,13 @@ def get_enhanced_image(image, enhancement = None):
 
 	pil_im = Image.fromarray(image)
 	if (enhancement == constants.Enhancement.brightness):
-		factor = np.random.uniform(0.6, 1.4)
+		factor = np.random.uniform(constants.MIN_BRIGHTNESS, constants.MAX_BRIGHTNESS)
 		enhancer = ImageEnhance.Brightness(pil_im)
 	elif (enhancement == constants.Enhancement.contrast):
-		factor = np.random.uniform(0.5, 1.7)
+		factor = np.random.uniform(constants.MIN_CONTRAST, constants.MAX_CONTRAST)
 		enhancer = ImageEnhance.Contrast(pil_im)
 	else:
-		factor = np.random.uniform(0.1, 3.0)
+		factor = np.random.uniform(constants.MIN_SHARPNESS, constants.MAX_SHARPNESS)
 		enhancer = ImageEnhance.Sharpness(pil_im)
 	enhanced = enhancer.enhance(factor)
 	return np.array(enhanced)
@@ -32,7 +32,7 @@ def random_color_shade(image, channels_format = None):
 	if (channels_format == None):
 		channels_format = constants.Channels.get_random()
 
-	intensity = np.random.uniform(0.2, 0.5)
+	intensity = np.random.uniform(constants.MIN_COLOR_SHADE, constants.MAX_COLOR_SHADE)
 	if (channels.is_monochannel(image)):
 	 	image = change_random_channel_gray(image, intensity)
 	elif (channels_format == constants.Channels.bgr):
@@ -78,9 +78,9 @@ def change_random_hlschannel(image, intensity = 0.2):
 def __change_channel(channel_choice, intensity, n_shadow, channel_1, channel_2,  channel_3):
 	blur_scale = 1.2
 	if (channel_choice == 1):
-		channel_1 = shadow.add_n_random_shadows(channel_1, n_shadow, intensity, blur_scale)
+		channel_1 = shadow.add_n_shadows(channel_1, n_shadow, intensity, blur_scale)
 	elif (channel_choice == 2):
-		channel_2 = shadow.add_n_random_shadows(channel_2, n_shadow, intensity, blur_scale)
+		channel_2 = shadow.add_n_shadows(channel_2, n_shadow, intensity, blur_scale)
 	else:
-		channel_3 = shadow.add_n_random_shadows(channel_3, n_shadow, intensity, blur_scale)
+		channel_3 = shadow.add_n_shadows(channel_3, n_shadow, intensity, blur_scale)
 	return cv2.merge((channel_1, channel_2, channel_3))
