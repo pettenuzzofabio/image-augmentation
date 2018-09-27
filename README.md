@@ -1,6 +1,6 @@
 # Image augmentator
 
-Grayscale image augmentator for machine learning
+Grayscale image augmentation for machine learning
 
 We all know that deep learning models are data hungry. They thrive when given many training examples.\
 This data augmentation tool enlarges your dataset of images by generating multiple version of each image.\
