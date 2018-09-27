@@ -4,8 +4,9 @@
 import math
 import cv2
 import numpy as np
+import constants
 
-def get_random_rotation(image, max_angle = 0.1):
+def get_random_rotation(image, max_angle = constants.MAX_ANGLE):
 	max_angle = abs(max_angle)
 	angle = np.random.uniform(-1*max_angle, max_angle)
 	return rotate_image_crop_borders(image, angle)
