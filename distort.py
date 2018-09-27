@@ -8,14 +8,15 @@ import cv2
 import numpy as np
 from skimage import img_as_ubyte
 from skimage import transform as tf
+import constants
 
 
 # those should be performed as last transformations,
 # after we have precisely detect our landmark in the original image
 # since they will significantly alter the image inner propritions
 
-def get_random_shear(image, max_factor = 0.1):
-	factor = __get_random_shear_direction(max_factor)
+def get_random_shear(image):
+	factor = __get_random_shear_direction(constants.MAX_SHEAR)
 	return shear_image(image, factor)
 
 def __get_random_shear_direction(max_factor):
@@ -36,7 +37,7 @@ def shear_image(image, factor):
 def __get_shear_direction(factor):
 	return factor > 0
 
-def get_random_skew(image, max_factor=0.1):
+def get_random_skew(image, max_factor = constants.MAX_SKEW):
 	max_factor = abs(max_factor)
 	factor = np.random.uniform(-1 * max_factor, max_factor)
 	return skew_image(image, factor)
@@ -59,7 +60,7 @@ def skew_image(image, factor):
 	transform_matrix = cv2.getPerspectiveTransform(points1, points2)
 	return cv2.warpPerspective(image, transform_matrix, (w, h))
 
-def get_random_warp(image, max_factor = 50, min_factor = 14):
+def get_random_warp(image, min_factor = constants.MIN_WARP, max_factor = constants.MAX_WARP):
 	factor = randint(min_factor, max_factor)
 	return warp_image(image, factor)
 
