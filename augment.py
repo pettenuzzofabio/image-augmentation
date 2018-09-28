@@ -7,7 +7,6 @@ import os
 import random
 
 import colors
-import colors
 import constants
 import cv2
 import distort
@@ -17,7 +16,6 @@ import rotation
 import shadow
 from skimage import img_as_ubyte
 from skimage import transform as tf
-
 
 functions_list = []
 
@@ -54,17 +52,17 @@ def write_images(full_name, images_list, output_path):
 		i += 1
 
 def __init_functions_list():
-	__append_function_n_times(noise.add_random_saltpepper_noise, constants.MaxTransformations.SALT_PEPPER_NOISE)
-	__append_function_n_times(noise.get_random_speckle_noise, 	 constants.MaxTransformations.SPECKLE_NOISE)
-	__append_function_n_times(noise.add_random_gauss_noise, 	 constants.MaxTransformations.GAUSS_NOISE)
-	__append_function_n_times(noise.add_random_blur, 			 constants.MaxTransformations.BLUR)
-	__append_function_n_times(shadow.add_n_random_shadows, 		 constants.MaxTransformations.SHADOW)
-	__append_function_n_times(colors.get_enhanced_image, 		 constants.MaxTransformations.ENHANCEMENTS)
-	__append_function_n_times(colors.random_color_shade, 		 constants.MaxTransformations.SHADE_COLORS)
-	__append_function_n_times(distort.get_random_shear, 		 constants.MaxTransformations.SHEAR)
-	__append_function_n_times(distort.get_random_skew, 			 constants.MaxTransformations.SKEW)
-	__append_function_n_times(distort.get_random_warp, 			 constants.MaxTransformations.WARP)
-	__append_function_n_times(rotation.get_random_rotation,		 constants.MaxTransformations.ROTATION)
+	__append_function_n_times(noise.add_random_saltpepper_noise,	constants.MaxTransformations.SALT_PEPPER_NOISE)
+	__append_function_n_times(noise.get_random_speckle_noise,	constants.MaxTransformations.SPECKLE_NOISE)
+	__append_function_n_times(noise.add_random_gauss_noise, 	constants.MaxTransformations.GAUSS_NOISE)
+	__append_function_n_times(noise.add_random_blur, 		constants.MaxTransformations.BLUR)
+	__append_function_n_times(shadow.add_n_random_shadows, 		constants.MaxTransformations.SHADOW)
+	__append_function_n_times(colors.get_enhanced_image, 		constants.MaxTransformations.ENHANCEMENTS)
+	__append_function_n_times(colors.random_color_shade, 		constants.MaxTransformations.SHADE_COLORS)
+	__append_function_n_times(distort.get_random_shear, 		constants.MaxTransformations.SHEAR)
+	__append_function_n_times(distort.get_random_skew, 		constants.MaxTransformations.SKEW)
+	__append_function_n_times(distort.get_random_warp, 		constants.MaxTransformations.WARP)
+	__append_function_n_times(rotation.get_random_rotation,		constants.MaxTransformations.ROTATION)
 
 def __append_function_n_times(function, n):
 	for i in range(0, n):
