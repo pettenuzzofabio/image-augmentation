@@ -29,7 +29,7 @@ Please let me know if you find missing packages.
 
 ## Usage
 
-###Command line:
+### Command line:
 
 usage: main.py [-h] [--input [INPUT]] [--output [OUTPUT]] [--n [N]]
 
@@ -40,7 +40,7 @@ optional arguments:
   --output [OUTPUT]  output files path, default: ./output/
   --n [N]            number of output images for each input image, default: 10
   
-###Integration with other code
+### Integration with other code
 
 
 ###Edit parameters
