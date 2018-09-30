@@ -60,16 +60,18 @@ def get_saltpepper_noise(image, intensity = 0.0001, add_blur = constants.ADD_BLU
 	s_vs_p = 0.5
 	saltpepper = np.copy(image)
 	num_salt = np.ceil(intensity * image.size * s_vs_p)
-	coords = [np.random.randint(0, i - 1, int(num_salt))
-			  for i in image.shape]
+	coords = __get_coordinates_saltpepper(image, num_salt)
 	saltpepper[coords] = 1
 	num_pepper = np.ceil(intensity * image.size * (1. - s_vs_p))
-	coords = [np.random.randint(0, i - 1, int(num_pepper))
-			  for i in image.shape]
+	coords = __get_coordinates_saltpepper(image, num_pepper)
 	saltpepper[coords] = 0
 	if (add_blur):
-		return blur(saltpepper, randint(1, 2))
+		return blur(saltpepper, 1)
 	return saltpepper
+
+def __get_coordinates_saltpepper(image, num_salt):
+	return tuple([np.random.randint(0, i - 1, int(num_salt))
+		      for i in image.shape])
 
 def get_random_speckle_noise(image):
 	intensity = np.random.uniform(constants.MIN_SPECKLE_NOISE, constants.MAX_SPECKLE_NOISE)
