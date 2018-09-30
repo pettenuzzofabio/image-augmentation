@@ -6,22 +6,28 @@ import math
 import os
 import random
 
-import colors
+import transformations.colors as colors
+import transformations.distort as distort
+import transformations.noise as noise
+import transformations.rotation as rotation
+import transformations.shadow as shadow
 import constants
 import cv2
-import distort
-import noise
 import numpy as np
-import rotation
-import shadow
 from skimage import img_as_ubyte
 from skimage import transform as tf
 
 functions_list = []
 
-def get_n_augmented_images(image, n_transformations):
+def get_n_augmented_images(image, n_output_list):
+	'''
+	Applies the transformations to the input image and returns a list of transformed images
+	:param image: image to be augmented
+	:param n_output_list: number of images returned as output
+	:return: list of transformed images
+	'''
 	images_list = []
-	for i in range(0, n_transformations, 1):
+	for i in range(0, n_output_list, 1):
 		images_list.append(get_augmented_image(image))
 	return images_list
 
