@@ -28,7 +28,7 @@ def main(args):
 		start = time.time()
 		images_list = augment.get_n_augmented_images(image, n_transformations)
 		end = time.time()
-		print("Image " + name + " augmented " + str(n_transformations) + " times in " + str(end - start) + " seconds")
+		print("Image " + name + " augmented " + str(n_transformations) + " times in " + str("%.3f" % (end - start)) + " seconds")
 
 		augment.write_images(name, images_list, output_path)
 
@@ -40,7 +40,7 @@ def __get_files_path(path):
 	if (os.path.isdir(path)):
 		files_path.extend([ path + "\\" + f for f in listdir(path) if isfile(join(path, f))])
 	else:
-		files_path.extend([path])
+		files_path.extend([ path ])
 	return files_path
 
 def __validate_path(path):
