@@ -22,11 +22,17 @@ def add_n_random_blur(image, n = randint(1, 4)):
 	return image
 
 def add_random_blur(image):
-	intensity = randint(constants.MIN_BLUR, constants.MAX_BLUR)
+	max_blur = constants.MAX_BLUR
+	max_dimension = max(image.shape)
+	if(max_dimension < 2000 and max_blur > 2):
+		max_blur -= 1
+		if (max_dimension < 1000 and max_blur > 1):
+			max_blur -= 1
+	intensity = randint(constants.MIN_BLUR, max_blur)
 	return blur(image, intensity)
 
 def blur(image, width = 9):
-	for i in range(0, width, 1):
+	for i in range(0, width):
 		size = 2**i + 1
 		image = cv2.blur(image, (size, size))
 	return image
@@ -61,7 +67,7 @@ def get_saltpepper_noise(image, intensity = 0.0001, add_blur = constants.ADD_BLU
 	saltpepper = np.copy(image)
 	num_salt = np.ceil(intensity * image.size * s_vs_p)
 	coords = __get_coordinates_saltpepper(image, num_salt)
-	saltpepper[coords] = 1
+	saltpepper[coords] = 255
 	num_pepper = np.ceil(intensity * image.size * (1. - s_vs_p))
 	coords = __get_coordinates_saltpepper(image, num_pepper)
 	saltpepper[coords] = 0
