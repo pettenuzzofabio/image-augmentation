@@ -24,15 +24,25 @@ def __get_random_shear_direction(max_factor):
 	return np.random.uniform(-1 * max_factor, max_factor)
 
 def shear_image(image, factor):
-	_, w = image.shape[ : 2]
+	# TODO: adjust factor to w/h proportion
+	h, w = image.shape[ : 2]
+	if(h > w):
+		image = np.rot90(image)
+		isImageRotated = True
+	    	w = h
+
 	afine_tf = tf.AffineTransform(shear = factor)
 	modified = tf.warp(image, inverse_map = afine_tf, preserve_range=True).astype(np.uint8)
-	crop_factor = 0.7
 
+	crop_factor = 0.7
 	if (__get_shear_direction(factor)):
-		return modified[ :, int(factor * w * crop_factor) : ]
+		modified = modified[ :, int(factor * w * crop_factor) : ]
 	else:
-		return modified[ :, : w-int(-1 * factor * w * crop_factor) ]
+		modified = modified[ :, : w-int(-1 * factor * w * crop_factor) ]
+
+	if isImageRotated:
+		return np.rot90(modified, 3)
+	return modified
 
 def __get_shear_direction(factor):
 	return factor > 0
@@ -73,7 +83,7 @@ def warp_image(image, factor):
 	image_output = np.zeros(image.shape, dtype = image.dtype)
 
 	for y in range(h):
-	    for x in range(w):
+		for x in range(w):
 			distance_from_center = __get_manhattan_distance(x, y, x_center, y_center)
 			wave_intensity = __get_wave_intensity(distance_from_center, factor)
 
