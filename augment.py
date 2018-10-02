@@ -19,15 +19,15 @@ from skimage import transform as tf
 
 functions_list = []
 
-def get_n_augmented_images(image, n_output_list):
+def get_n_augmented_images(image, n_output_list = constants.N_FILES_OUTPUT):
 	'''
 	Applies the transformations to the input image and returns a list of transformed images
 	:param image: image to be augmented
 	:param n_output_list: number of images returned as output
-	:return: list of transformed images
+	:return list of transformed images
 	'''
 	images_list = []
-	for i in range(0, n_output_list, 1):
+	for _ in range(n_output_list):
 		images_list.append(get_augmented_image(image))
 	return images_list
 
@@ -35,9 +35,12 @@ def get_augmented_image(image):
 	if not functions_list :
 		__init_functions_list()
 
-	for function in functions_list:
-		if (np.random.uniform() <= constants.PROBABILITY_TRANSFORMATION_GETS_APPLIED):
-			image = function(image)
+	tmp_functions_list = functions_list[:]
+	for _ in range(constants.N_TRANSFORMATIONS):
+		function = random.choice(tmp_functions_list)
+		image = function(image)
+		tmp_functions_list.remove(function)
+
 	return image
 
 def write_images(full_name, images_list, output_path):
@@ -69,7 +72,8 @@ def __init_functions_list():
 	__append_function_n_times(distort.get_random_skew, 		constants.MaxTransformations.SKEW)
 	__append_function_n_times(distort.get_random_warp, 		constants.MaxTransformations.WARP)
 	__append_function_n_times(rotation.get_random_rotation,		constants.MaxTransformations.ROTATION)
+	constants.N_TRANSFORMATIONS = min(len(functions_list), constants.N_TRANSFORMATIONS)
 
 def __append_function_n_times(function, n):
-	for i in range(0, n):
+	for _ in range(n):
 		functions_list.append(function)
