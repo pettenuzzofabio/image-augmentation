@@ -55,7 +55,8 @@ def get_n_augmented_images(image, n_output_list = constants.N_FILES_OUTPUT)
 	:param image: image to be augmented
 	:param n_output_list: number of images returned as output
 	:return list of transformed images
-	'''```
+	'''
+	```
 
 ### Edit parameters
 
