@@ -60,7 +60,7 @@ If you want to integrate this code in your Machine Learning project
 
 In the file `constants.py` there are several parameters that can be edited 
 
-`
+```python
 # default number of files given as output for each input image
 N_FILES_OUTPUT    = 10
 
@@ -72,9 +72,9 @@ FILES_INPUT_PATH  = "./input/"
 
 # default output images path
 FILES_OUTPUT_PATH = "./output/"
-`
+```
 
-`
+```python
 # max number of transformations
 # that are randomly applied for each output image.
 # If N_TRANSFORMATIONS > total number of transformations
@@ -157,7 +157,7 @@ MAX_ANGLE        	= 0.1
 ADD_BLUR_AFTER_SP_AND_SPECKLE_NOISE = True
 
 READ_IMAGE_AS_GRAYSCALE = True
-`
+```
 
 
 <!--
