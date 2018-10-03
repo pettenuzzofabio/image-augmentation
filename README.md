@@ -48,13 +48,14 @@ e.g. `python main.py `
 If you want to integrate this code in your Machine Learning project
 - `import augment` (specify the relative path of `augment.py` with respect to the file from which you're importing it)
 - invoke the method 
-`def get_n_augmented_images(image, n_output_list = constants.N_FILES_OUTPUT)
+```python
+def get_n_augmented_images(image, n_output_list = constants.N_FILES_OUTPUT)
 	'''
 	Applies the transformations to the input image and returns a list of transformed images
 	:param image: image to be augmented
 	:param n_output_list: number of images returned as output
 	:return list of transformed images
-	'''`
+	'''```
 
 ### Edit parameters
 
