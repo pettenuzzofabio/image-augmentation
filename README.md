@@ -14,10 +14,12 @@ It is conceived to help you getting more data, if...well you don't actually have
 |     | Image |
 | --- | ----- |
 | *Original Input* | ![input image](readme_images/test.png?raw=true "input image") |
-| salt & pepper noise | ![salt & pepper noise](readme_images/saltpepper.png?raw=true "salt & pepper noise") |
-| speckle noise | ![speckle noise](readme_images/speckle.png?raw=true "speckle noise") |
-| gauss noise | ![gauss noise](readme_images/gauss.png?raw=true "gauss noise") |
-| blur | ![blur](readme_images/blur.png?raw=true "blur") |
+| shear | ![shear](readme_images/shear.png?raw=true "shear") |
+| skew horizontal | ![skew horizontal](readme_images/skew(2).png?raw=true "skew horizontal") |
+| skew vertical | ![skew vertical](readme_images/skew(1).png?raw=true "skew vertical") |
+| warp | ![noise](readme_images/warp(1).png?raw=true "warp") |
+| warp | ![noise](readme_images/warp(2).png?raw=true "warp") |
+| warp | ![noise](readme_images/warp(3).png?raw=true "warp") |
 | shadows | ![shadows](readme_images/shadows(1).png?raw=true "shadows") |
 | shadows | ![shadows](readme_images/shadows(2).png?raw=true "shadows") |
 | shadows | ![shadows](readme_images/shadows(3).png?raw=true "shadows") |
@@ -25,6 +27,11 @@ It is conceived to help you getting more data, if...well you don't actually have
 | shadows | ![shadows](readme_images/shadows(5).png?raw=true "shadows") |
 | shadows | ![shadows](readme_images/shadows(6).png?raw=true "shadows") |
 | shadows | ![shadows](readme_images/shadows(7).png?raw=true "shadows") |
+| rotation | ![noise](readme_images/rotation.png?raw=true "rotation") |
+| salt & pepper noise | ![salt & pepper noise](readme_images/saltpepper.png?raw=true "salt & pepper noise") |
+| speckle noise | ![speckle noise](readme_images/speckle.png?raw=true "speckle noise") |
+| gauss noise | ![gauss noise](readme_images/gauss.png?raw=true "gauss noise") |
+| blur | ![blur](readme_images/blur.png?raw=true "blur") |
 | sharpness | ![sharpness](readme_images/sharpness.png?raw=true "sharpness") |
 | brightness | ![brightness](readme_images/brightness.png?raw=true "brightness") |
 | contrast | ![contrast](readme_images/contrast.png?raw=true "contrast") |
@@ -36,13 +43,6 @@ It is conceived to help you getting more data, if...well you don't actually have
 | shade colors | ![shade colors](readme_images/colors(6).png?raw=true "shade colors") |
 | shade colors | ![shade colors](readme_images/colors(7).png?raw=true "shade colors") |
 | shade colors | ![shade colors](readme_images/colors(8).png?raw=true "shade colors") |
-| shear | ![shear](readme_images/shear.png?raw=true "shear") |
-| skew horizontal | ![skew horizontal](readme_images/skew(2).png?raw=true "skew horizontal") |
-| skew vertical | ![skew vertical](readme_images/skew(1).png?raw=true "skew vertical") |
-| warp | ![noise](readme_images/warp(1).png?raw=true "warp") |
-| warp | ![noise](readme_images/warp(2).png?raw=true "warp") |
-| warp | ![noise](readme_images/warp(3).png?raw=true "warp") |
-| rotation | ![noise](readme_images/rotation.png?raw=true "rotation") |
 
 ### Requirements
 
@@ -221,5 +221,5 @@ But it can be used to train other convolutional neural networks and should both 
 - image flip: this hasn't been implemented yet because for my purpose I need to distinguish between Left-something and Right-something
 - augment bounding boxes (and possibly other landmarks) in the exactly same way as the augmented image, in order to better use transformations which alter pixel coordinates.
 This can be accomplished by using `random.seed()`
-- 
 - add requirements.txt
+- 
