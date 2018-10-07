@@ -1,17 +1,48 @@
 # Image augmentation
 
-Image augmentation for machine learning projects
+Image dataset augmentation for machine learning projects
 
 We all know that deep learning models are data hungry. They thrive when given many training examples.\
 This data augmentation tool enlarges your dataset of images by generating multiple version of each image.\
 It is conceived to help you getting more data, if...well you don't actually have "more data".
 
-- Input: grayscale photos or scan to documents, certificates, pages, receipts...
+- Input: photos or scan of documents, certificates, invoices, pages, receipts...
 - Output: images which simulate different lighting conditions, slight changes in picture perspective, minor crumples and warps
+ 
+## Examples
 
-Invariants that should be preserved:
- - the position of the objects contained with respect to the size of the image
- - the proportions of the image
+|     | Image |
+| --- | ----- |
+| *Original Input* | ![input image](readme_images/test.png?raw=true "input image") |
+| salt & pepper noise | ![salt & pepper noise](readme_images/saltpepper.png?raw=true "salt & pepper noise") |
+| speckle noise | ![speckle noise](readme_images/speckle.png?raw=true "speckle noise") |
+| gauss noise | ![gauss noise](readme_images/gauss.png?raw=true "gauss noise") |
+| blur | ![blur](readme_images/blur.png?raw=true "blur") |
+| shadows | ![shadows](readme_images/shadows(1).png?raw=true "shadows") |
+| shadows | ![shadows](readme_images/shadows(2).png?raw=true "shadows") |
+| shadows | ![shadows](readme_images/shadows(3).png?raw=true "shadows") |
+| shadows | ![shadows](readme_images/shadows(4).png?raw=true "shadows") |
+| shadows | ![shadows](readme_images/shadows(5).png?raw=true "shadows") |
+| shadows | ![shadows](readme_images/shadows(6).png?raw=true "shadows") |
+| shadows | ![shadows](readme_images/shadows(7).png?raw=true "shadows") |
+| sharpness | ![sharpness](readme_images/sharpness.png?raw=true "sharpness") |
+| brightness | ![brightness](readme_images/brightness.png?raw=true "brightness") |
+| contrast | ![contrast](readme_images/contrast.png?raw=true "contrast") |
+| shade colors | ![shade colors](readme_images/colors(1).png?raw=true "shade colors") |
+| shade colors | ![shade colors](readme_images/colors(2).png?raw=true "shade colors") |
+| shade colors | ![shade colors](readme_images/colors(3).png?raw=true "shade colors") |
+| shade colors | ![shade colors](readme_images/colors(4).png?raw=true "shade colors") |
+| shade colors | ![shade colors](readme_images/colors(5).png?raw=true "shade colors") |
+| shade colors | ![shade colors](readme_images/colors(6).png?raw=true "shade colors") |
+| shade colors | ![shade colors](readme_images/colors(7).png?raw=true "shade colors") |
+| shade colors | ![shade colors](readme_images/colors(8).png?raw=true "shade colors") |
+| shear | ![shear](readme_images/shear.png?raw=true "shear") |
+| skew horizontal | ![skew horizontal](readme_images/skew(2).png?raw=true "skew horizontal") |
+| skew vertical | ![skew vertical](readme_images/skew(1).png?raw=true "skew vertical") |
+| warp | ![noise](readme_images/warp(1).png?raw=true "warp") |
+| warp | ![noise](readme_images/warp(2).png?raw=true "warp") |
+| warp | ![noise](readme_images/warp(3).png?raw=true "warp") |
+| rotation | ![noise](readme_images/rotation.png?raw=true "rotation") |
 
 ### Requirements
 
@@ -22,26 +53,29 @@ Required packages:
 - enum34
 - numpy
 - opencv-python
+- six
 - scipy
 - scikit-image
 
+OpenCV has to be manually installed. The other package can be installed  with `pip install [package_name]`
 Please let me know if you find missing dependencies.
 
 ## Usage
 
-
 ### Command line
 
-`usage: main.py [-h] [--input [INPUT]] [--output [OUTPUT]] [--n [N]]
+```
+usage: main.py [-h] [--input [INPUT]] [--output [OUTPUT]] [--n [N]]
 
 optional arguments:
   -h, --help         show this help message and exit
   --input [INPUT]    input files path, default: all images .jpg, .jpeg, .png
                      in ./input/
   --output [OUTPUT]  output files path, default: ./output/
-  --n [N]            number of output images for each input image, default: 10`
+  --n [N]            number of output images for each input image, default: 10
+```
   
-e.g. `python main.py `
+e.g. `python main.py`
   
 ### Integration with other code
 
@@ -58,9 +92,16 @@ def get_n_augmented_images(image, n_output_list = constants.N_FILES_OUTPUT)
 	'''
 ```
 
+or, as an alternative, you can directly call the functions, e.g.
+- `import distort` (specify the relative path of `distort.py` with respect to the file from which you're importing it)
+- invoke the method 
+```python
+get_random_warp(image, min_factor = constants.MIN_WARP, max_factor = constants.MAX_WARP)
+```
+
 ### Edit parameters
 
-In the file `constants.py` there are several parameters that can be edited 
+In the file `constants.py` there are several parameters that can be tuned to  
 
 ```python
 # default number of files given as output for each input image
@@ -100,10 +141,10 @@ class MaxTransformations:
 
     # The following transformations
     # will alter pixel coordinates
-    SHEAR               = 0
-    SKEW                = 0
-    WARP                = 0
-    ROTATION            = 0
+    SHEAR               = 1
+    SKEW                = 1
+    WARP                = 1
+    ROTATION            = 1
 
 # MIN/MAX AVG BLURRING
 MIN_BLUR 		= 1
@@ -168,10 +209,6 @@ READ_IMAGE_AS_GRAYSCALE = True
  The tool scans a directory containing image files, and creates new images by performing a set of augmentation operations. 
 ]
 
-## Getting Started
-
-### Prerequisites
-
 It targets grayscale images, but it can be easily extended to handle other kind of images as well. 
 
 I've integrated it with YOLO v3 object detection algorithm, based on the darknet CNN.
@@ -181,4 +218,8 @@ But it can be used to train other convolutional neural networks and should both 
 
 ## Future developments
 
-- image flip: this hasn't been implemented yet because for my project I need to distinguish between Left-something and Right-something
+- image flip: this hasn't been implemented yet because for my purpose I need to distinguish between Left-something and Right-something
+- augment bounding boxes (and possibly other landmarks) in the exactly same way as the augmented image, in order to better use transformations which alter pixel coordinates.
+This can be accomplished by using `random.seed()`
+- 
+- add requirements.txt
