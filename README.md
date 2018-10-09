@@ -2,47 +2,33 @@
 
 Image dataset augmentation for machine learning projects
 
-We all know that deep learning models are data hungry. They thrive when given many training examples.\
-This data augmentation tool enlarges your dataset of images by generating multiple version of each image.\
-It is conceived to help you getting more data, if...well you don't actually have "more data".
+We all know that deep learning models are data hungry. They thrive when given tons of training examples.\
+This data augmentation tool enlarges your dataset of pictures by generating multiple version of each image.\
+It helps you getting more data, if... well you don't actually have "more data".
 
 - Input: photos or scan of documents, certificates, invoices, pages, receipts...
 - Output: images which simulate different lighting conditions, slight changes in picture perspective, minor crumples and warps
- 
+
+I've integrated it with YOLO v3 object detection algorithm, based on the darknet CNN, but it works also on other convolutional neural networks, hopefully improving their performance and reducing overfitting.
+
 ## Examples
 
 |     | Image |
 | --- | ----- |
-| *Original Input* | ![input image](readme_images/test.png?raw=true "input image") |
-| shear | ![shear](readme_images/shear.png?raw=true "shear") |
-| skew horizontal | ![skew horizontal](readme_images/skew(2).png?raw=true "skew horizontal") |
-| skew vertical | ![skew vertical](readme_images/skew(1).png?raw=true "skew vertical") |
-| warp | ![noise](readme_images/warp(1).png?raw=true "warp") |
-| warp | ![noise](readme_images/warp(2).png?raw=true "warp") |
-| warp | ![noise](readme_images/warp(3).png?raw=true "warp") |
-| shadows | ![shadows](readme_images/shadows(1).png?raw=true "shadows") |
-| shadows | ![shadows](readme_images/shadows(2).png?raw=true "shadows") |
-| shadows | ![shadows](readme_images/shadows(3).png?raw=true "shadows") |
-| shadows | ![shadows](readme_images/shadows(4).png?raw=true "shadows") |
-| shadows | ![shadows](readme_images/shadows(5).png?raw=true "shadows") |
-| shadows | ![shadows](readme_images/shadows(6).png?raw=true "shadows") |
-| shadows | ![shadows](readme_images/shadows(7).png?raw=true "shadows") |
-| rotation | ![noise](readme_images/rotation.png?raw=true "rotation") |
-| salt & pepper noise | ![salt & pepper noise](readme_images/saltpepper.png?raw=true "salt & pepper noise") |
-| speckle noise | ![speckle noise](readme_images/speckle.png?raw=true "speckle noise") |
-| gauss noise | ![gauss noise](readme_images/gauss.png?raw=true "gauss noise") |
-| blur | ![blur](readme_images/blur.png?raw=true "blur") |
-| sharpness | ![sharpness](readme_images/sharpness.png?raw=true "sharpness") |
-| brightness | ![brightness](readme_images/brightness.png?raw=true "brightness") |
-| contrast | ![contrast](readme_images/contrast.png?raw=true "contrast") |
-| shade colors | ![shade colors](readme_images/colors(1).png?raw=true "shade colors") |
-| shade colors | ![shade colors](readme_images/colors(2).png?raw=true "shade colors") |
-| shade colors | ![shade colors](readme_images/colors(3).png?raw=true "shade colors") |
-| shade colors | ![shade colors](readme_images/colors(4).png?raw=true "shade colors") |
-| shade colors | ![shade colors](readme_images/colors(5).png?raw=true "shade colors") |
-| shade colors | ![shade colors](readme_images/colors(6).png?raw=true "shade colors") |
-| shade colors | ![shade colors](readme_images/colors(7).png?raw=true "shade colors") |
-| shade colors | ![shade colors](readme_images/colors(8).png?raw=true "shade colors") |
+| *Original Input*	| <img style="border: 1px solid grey" 	src="readme_images/test.png" 		width="100" alt="input image"> 			|
+| shear 			| <img style="border: 1px solid grey" 	src="readme_images/shear.png" 		width="100" alt="shear"> 				|
+| skew 			 	| <img style="border: 1px solid grey" 	src="readme_images/skew(2).png" 	width="100" alt="skew horizontal"> <img style="border: 1px solid grey" 	src="readme_images/skew(1).png" 	width="100" alt="skew vertical"> 		|
+| warp 				| <img style="border: 1px solid grey" 	src="readme_images/warp(1).png" 	width="100" alt="warp"> <img style="border: 1px solid grey" 	src="readme_images/warp(2).png" 	width="100" alt="warp"> <img style="border: 1px solid grey" 	src="readme_images/warp(3).png" 	width="100" alt="warp"> |
+| shadows 			| <img style="border: 1px solid grey" 	src="readme_images/shadows(1).png" 	width="100" alt="shadows"> <img style="border: 1px solid grey" 	src="readme_images/shadows(2).png" 	width="100" alt="shadows"> <img style="border: 1px solid grey" 	src="readme_images/shadows(3).png" 	width="100" alt="shadows"> <img style="border: 1px solid grey" 	src="readme_images/shadows(4).png" 	width="100" alt="shadows"> <img style="border: 1px solid grey" 	src="readme_images/shadows(5).png" 	width="100" alt="shadows"> <img style="border: 1px solid grey" 	src="readme_images/shadows(6).png" 	width="100" alt="shadows"> <img style="border: 1px solid grey" 	src="readme_images/shadows(7).png" 	width="100" alt="shadows">	|
+| rotation 			| <img style="border: 1px solid grey" 	src="readme_images/rotation.png" 	width="100" alt="rotation"> 			|
+| salt & pepper noise | <img style="border: 1px solid grey" src="readme_images/saltpepper.png" 	width="100" alt="salt & pepper noise"> 	|
+| speckle noise 	| <img style="border: 1px solid grey" 	src="readme_images/speckle.png" 	width="100" alt="speckle noise"> 		|
+| gauss noise 		| <img style="border: 1px solid grey" 	src="readme_images/gauss.png" 		width="100" alt="gauss noise">  		|
+| blur 				| <img style="border: 1px solid grey" 	src="readme_images/blur.png" 		width="100" alt="blur">  				|
+| sharpness 		| <img style="border: 1px solid grey" 	src="readme_images/sharpness.png" 	width="100" alt="sharpness">  			|
+| brightness 		| <img style="border: 1px solid grey" 	src="readme_images/brightness.png" 	width="100" alt="brightness">  			|
+| contrast 			| <img style="border: 1px solid grey" 	src="readme_images/contrast.png" 	width="100" alt="contrast">  			|
+| shade colors 		| <img style="border: 1px solid grey" 	src="readme_images/colors(1).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(2).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(3).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(4).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(5).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(6).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(7).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(8).png" 	width="100" alt="shade colors"> |
 
 ### Requirements
 
@@ -92,7 +78,7 @@ def get_n_augmented_images(image, n_output_list = constants.N_FILES_OUTPUT)
 	'''
 ```
 
-or, as an alternative, you can directly call the functions, e.g.
+or, as an alternative, you can directly call the functions, e.g.:
 - `import distort` (specify the relative path of `distort.py` with respect to the file from which you're importing it)
 - invoke the method 
 ```python
@@ -101,7 +87,7 @@ get_random_warp(image, min_factor = constants.MIN_WARP, max_factor = constants.M
 
 ### Edit parameters
 
-In the file `constants.py` there are several parameters that can be tuned to  
+In the file `constants.py` there are several parameters that can be tuned to better suit your project's needs:
 
 ```python
 # default number of files given as output for each input image
@@ -131,11 +117,11 @@ N_TRANSFORMATIONS = 2
 # Useful to apply some transformations more often ( n > 1 )
 # or to exclude them` altogether ( n = 0 )
 class MaxTransformations:
-    SALT_PEPPER_NOISE   = 1
+    SALT_PEPPER_NOISE   = 0
     SPECKLE_NOISE       = 0
     GAUSS_NOISE         = 0
     BLUR                = 0
-    SHADOW              = 0
+    SHADOW              = 1
     ENHANCEMENTS        = 0
     SHADE_COLORS        = 0
 
@@ -203,23 +189,11 @@ READ_IMAGE_AS_GRAYSCALE = True
 ```
 
 
-<!--
-
-[ The tool converts a set of images into a much larger set of slightly altered images.
- The tool scans a directory containing image files, and creates new images by performing a set of augmentation operations. 
-]
-
-It targets grayscale images, but it can be easily extended to handle other kind of images as well. 
-
-I've integrated it with YOLO v3 object detection algorithm, based on the darknet CNN.
-But it can be used to train other convolutional neural networks and should both improve their performance and reduce overfitting.
-
--->
 
 ## Future developments
 
-- image flip: this hasn't been implemented yet because for my purpose I need to distinguish between Left-something and Right-something
 - augment bounding boxes (and possibly other landmarks) in the exactly same way as the augmented image, in order to better use transformations which alter pixel coordinates.
 This can be accomplished by using `random.seed()`
+- optimize & add multi threading
+- image flip: this hasn't been implemented yet because for my purpose I need to distinguish between Left-something and Right-something
 - add requirements.txt
-- 
