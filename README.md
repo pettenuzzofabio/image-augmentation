@@ -46,7 +46,7 @@ Required packages:
 - scipy
 - scikit-image
 
-OpenCV has to be manually installed. The other package can be installed  with `pip install [package_name]`
+OpenCV has to be manually installed. The other package can be installed  with `pip install [package_name]`\
 Please let me know if you find missing dependencies.
 
 ### Command line
@@ -193,8 +193,8 @@ READ_IMAGE_AS_GRAYSCALE = True
 
 ## Future developments
 
-- augment bounding boxes (and possibly other landmarks) in the exactly same way as the augmented image, in order to better use transformations which alter pixel coordinates.
+- Augment bounding boxes (and possibly other landmarks) in the exactly same way as the augmented image, in order to better use transformations which alter pixel coordinates.
 This can be accomplished by using `random.seed()`
-- optimize & add multi threading
-- image flip: this hasn't been implemented yet because for my purpose I need to distinguish between Left-something and Right-something
-- add requirements.txt
+- Optimize & add multi threading
+- Image flip: this hasn't been implemented yet because for my purpose I need to distinguish between Left-something and Right-something
+- Add requirements.txt
