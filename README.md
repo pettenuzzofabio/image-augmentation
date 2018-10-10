@@ -30,6 +30,9 @@ I've tested it with YOLO v3 object detection algorithm, based on the darknet CNN
 | Contrast 			| <img style="border: 1px solid grey" 	src="readme_images/contrast.png" 	width="100" alt="contrast">  			|
 | Shade colors 		| <img style="border: 1px solid grey" 	src="readme_images/colors(2).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(3).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(4).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(5).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(6).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(7).png" 	width="100" alt="shade colors"> |
 
+
+## Usage
+
 ### Requirements
 
 - Python >= 2.7
@@ -45,8 +48,6 @@ Required packages:
 
 OpenCV has to be manually installed. The other package can be installed  with `pip install [package_name]`
 Please let me know if you find missing dependencies.
-
-## Usage
 
 ### Command line
 
