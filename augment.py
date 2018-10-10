@@ -35,6 +35,7 @@ def get_augmented_image(image):
 	if not functions_list :
 		__init_functions_list()
 
+	# TODO: add multithreading
 	tmp_functions_list = functions_list[:]
 	for _ in range(constants.N_TRANSFORMATIONS):
 		function = random.choice(tmp_functions_list)

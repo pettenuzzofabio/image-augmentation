@@ -9,26 +9,26 @@ It helps you getting more data, if... well you don't actually have "more data".
 - Input: photos or scan of documents, certificates, invoices, pages, receipts...
 - Output: images which simulate different lighting conditions, slight changes in picture perspective, minor crumples and warps
 
-I've integrated it with YOLO v3 object detection algorithm, based on the darknet CNN, but it works also on other convolutional neural networks, hopefully improving their performance and reducing overfitting.
+I've tested it with YOLO v3 object detection algorithm, based on the darknet CNN, but it works also on other convolutional neural networks, hopefully improving their performance and reducing overfitting.
 
 ## Examples
 
 |     | Image |
 | --- | ----- |
 | *Original Input*	| <img style="border: 1px solid grey" 	src="readme_images/test.png" 		width="100" alt="input image"> 			|
-| shear 			| <img style="border: 1px solid grey" 	src="readme_images/shear.png" 		width="100" alt="shear"> 				|
-| skew 			 	| <img style="border: 1px solid grey" 	src="readme_images/skew(2).png" 	width="100" alt="skew horizontal"> <img style="border: 1px solid grey" 	src="readme_images/skew(1).png" 	width="100" alt="skew vertical"> 		|
-| warp 				| <img style="border: 1px solid grey" 	src="readme_images/warp(1).png" 	width="100" alt="warp"> <img style="border: 1px solid grey" 	src="readme_images/warp(2).png" 	width="100" alt="warp"> <img style="border: 1px solid grey" 	src="readme_images/warp(3).png" 	width="100" alt="warp"> |
-| shadows 			| <img style="border: 1px solid grey" 	src="readme_images/shadows(1).png" 	width="100" alt="shadows"> <img style="border: 1px solid grey" 	src="readme_images/shadows(2).png" 	width="100" alt="shadows"> <img style="border: 1px solid grey" 	src="readme_images/shadows(3).png" 	width="100" alt="shadows"> <img style="border: 1px solid grey" 	src="readme_images/shadows(4).png" 	width="100" alt="shadows"> <img style="border: 1px solid grey" 	src="readme_images/shadows(5).png" 	width="100" alt="shadows">  <img style="border: 1px solid grey" 	src="readme_images/shadows(7).png" 	width="100" alt="shadows">	|
-| rotation 			| <img style="border: 1px solid grey" 	src="readme_images/rotation.png" 	width="100" alt="rotation"> 			|
-| salt & pepper noise | <img style="border: 1px solid grey" src="readme_images/saltpepper.png" 	width="100" alt="salt & pepper noise"> 	|
-| speckle noise 	| <img style="border: 1px solid grey" 	src="readme_images/speckle.png" 	width="100" alt="speckle noise"> 		|
-| gauss noise 		| <img style="border: 1px solid grey" 	src="readme_images/gauss.png" 		width="100" alt="gauss noise">  		|
-| blur 				| <img style="border: 1px solid grey" 	src="readme_images/blur.png" 		width="100" alt="blur">  				|
-| sharpness 		| <img style="border: 1px solid grey" 	src="readme_images/sharpness.png" 	width="100" alt="sharpness">  			|
-| brightness 		| <img style="border: 1px solid grey" 	src="readme_images/brightness.png" 	width="100" alt="brightness">  			|
-| contrast 			| <img style="border: 1px solid grey" 	src="readme_images/contrast.png" 	width="100" alt="contrast">  			|
-| shade colors 		| <img style="border: 1px solid grey" 	src="readme_images/colors(1).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(2).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(3).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(4).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(5).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(6).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(7).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(8).png" 	width="100" alt="shade colors"> |
+| Shear 			| <img style="border: 1px solid grey" 	src="readme_images/shear.png" 		width="100" alt="shear"> 				|
+| Skew 			 	| <img style="border: 1px solid grey" 	src="readme_images/skew(2).png" 	width="100" alt="skew horizontal"> <img style="border: 1px solid grey" 	src="readme_images/skew(1).png" 	width="100" alt="skew vertical"> 		|
+| Warp 				| <img style="border: 1px solid grey" 	src="readme_images/warp(1).png" 	width="100" alt="warp"> <img style="border: 1px solid grey" 	src="readme_images/warp(2).png" 	width="100" alt="warp"> <img style="border: 1px solid grey" 	src="readme_images/warp(3).png" 	width="100" alt="warp"> |
+| Shadows 			| <img style="border: 1px solid grey" 	src="readme_images/shadows(1).png" 	width="100" alt="shadows"> <img style="border: 1px solid grey" 	src="readme_images/shadows(2).png" 	width="100" alt="shadows"> <img style="border: 1px solid grey" 	src="readme_images/shadows(3).png" 	width="100" alt="shadows"> <img style="border: 1px solid grey" 	src="readme_images/shadows(4).png" 	width="100" alt="shadows"> <img style="border: 1px solid grey" 	src="readme_images/shadows(5).png" 	width="100" alt="shadows">  <img style="border: 1px solid grey" 	src="readme_images/shadows(7).png" 	width="100" alt="shadows">	|
+| Rotation 			| <img style="border: 1px solid grey" 	src="readme_images/rotation.png" 	width="100" alt="rotation"> 			|
+| Salt & pepper noise | <img style="border: 1px solid grey" src="readme_images/saltpepper.png" 	width="100" alt="salt & pepper noise"> 	|
+| Speckle noise 	| <img style="border: 1px solid grey" 	src="readme_images/speckle.png" 	width="100" alt="speckle noise"> 		|
+| Gauss noise 		| <img style="border: 1px solid grey" 	src="readme_images/gauss.png" 		width="100" alt="gauss noise">  		|
+| Blur 				| <img style="border: 1px solid grey" 	src="readme_images/blur.png" 		width="100" alt="blur">  				|
+| Sharpness 		| <img style="border: 1px solid grey" 	src="readme_images/sharpness.png" 	width="100" alt="sharpness">  			|
+| Brightness 		| <img style="border: 1px solid grey" 	src="readme_images/brightness.png" 	width="100" alt="brightness">  			|
+| Contrast 			| <img style="border: 1px solid grey" 	src="readme_images/contrast.png" 	width="100" alt="contrast">  			|
+| Shade colors 		| <img style="border: 1px solid grey" 	src="readme_images/colors(2).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(3).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(4).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(5).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(6).png" 	width="100" alt="shade colors"> <img style="border: 1px solid grey" 	src="readme_images/colors(7).png" 	width="100" alt="shade colors"> |
 
 ### Requirements
 
@@ -61,7 +61,7 @@ optional arguments:
   --n [N]            number of output images for each input image, default: 10
 ```
   
-e.g. `python main.py`
+e.g. `python main.py --input ./input/ --output ./output/ --n 5`
   
 ### Integration with other code
 
