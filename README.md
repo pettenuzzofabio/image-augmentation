@@ -1,13 +1,13 @@
 # Image augmentation
 
-Image dataset augmentation for machine learning projects
+Image dataset augmentation for machine learning projects.
 
 We all know that deep learning models are data hungry. They thrive when given tons of training examples.\
 This data augmentation tool enlarges your dataset of pictures by generating multiple version of each image.\
 It helps you getting more data, if... well you don't actually have "more data".
 
 - Input: photos or scan of documents, certificates, invoices, pages, receipts...
-- Output: images which simulate different lighting conditions, slight changes in the perspective, minor crumples and warps
+- Output: images which simulate different lighting conditions, slight changes of perspective, minor crumples and warps
 
 I've tested it with YOLO v3 object detection algorithm, based on the darknet CNN, but it works also on other convolutional neural networks, hopefully improving their performance and reducing overfitting.
 
