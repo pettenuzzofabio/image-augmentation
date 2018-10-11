@@ -46,7 +46,7 @@ Required packages:
 - scipy
 - scikit-image
 
-OpenCV has to be manually installed. The other package can be installed  with `pip install [package_name]`\
+OpenCV has to be manually installed. The other packages can be installed  with `pip install [package_name]`\
 Please let me know if you find missing dependencies.
 
 ### Command line
@@ -62,13 +62,13 @@ optional arguments:
   --n [N]            number of output images for each input image, default: 10
 ```
   
-e.g. `python main.py --input ./input/ --output ./output/ --n 5`
+e.g. `python main.py --input /path/to/input/folder/ --output /path/to/output/folder/ --n 5`
   
-### Integration with other code
+### Integration in external projects
 
 If you want to integrate this code in your Machine Learning project
 - `import augment` (specify the relative path of `augment.py` with respect to the file from which you're importing it)
-- invoke the method 
+- invoke the function 
 ```python
 def get_n_augmented_images(image, n_output_list = constants.N_FILES_OUTPUT)
 	'''
@@ -79,9 +79,9 @@ def get_n_augmented_images(image, n_output_list = constants.N_FILES_OUTPUT)
 	'''
 ```
 
-or, as an alternative, you can directly call the functions, e.g.:
-- `import distort` (specify the relative path of `distort.py` with respect to the file from which you're importing it)
-- invoke the method 
+or, as an alternative, you can directly call the functions in the package `transformations`, e.g.:
+- `import transformations.distort` (specify the relative path of `distort.py` with respect to the file from which you're importing it)
+- invoke the function 
 ```python
 get_random_warp(image, min_factor = constants.MIN_WARP, max_factor = constants.MAX_WARP)
 ```
