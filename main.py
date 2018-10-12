@@ -26,7 +26,7 @@ def main(args):
 		else:
 			image = cv2.imread(full_name)
 		start = time.time()
-		images_list = augment.get_n_augmented_images(image, n_transformations)
+		images_list = augment.get_n_augmented_images(image, n_output_list = n_transformations)
 		end = time.time()
 		print("Image " + name + " augmented " + str(n_transformations) + " times in " + str("%.3f" % (end - start)) + " seconds")
 
