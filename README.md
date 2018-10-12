@@ -92,10 +92,10 @@ In the file `constants.py` there are several parameters that can be tuned to bet
 
 ```python
 # default number of files given as output for each input image
-N_FILES_OUTPUT    = 10
+N_FILES_OUTPUT    = 20
 
 # allowed input images extensions
-IMAGE_EXTENSIONS  = [".jpg", ".jpeg", ".png"]
+IMAGE_EXTENSIONS  = [ ".jpg", ".jpeg", ".png", ".bmp", ".jp2", ".dib", ".webp", ".sr", ".ras", ".tiff", ".tif", ".pbm", ".pgm", ".ppm" ]
 
 # default input images path
 FILES_INPUT_PATH  = "./input/"
@@ -105,32 +105,37 @@ FILES_OUTPUT_PATH = "./output/"
 ```
 
 ```python
-# max number of transformations
-# that are randomly applied for each output image.
-# If N_TRANSFORMATIONS > total number of transformations
-# specified in the MaxTransformations field
-# N_TRANSFORMATIONS will be reset as:
-# min( sum_MaxTransformations_fields, N_TRANSFORMATIONS) )
+'''
+max number of transformations
+that are randomly applied for each output image.
+If N_TRANSFORMATIONS > total number of transformations
+specified in the MaxTransformations field
+N_TRANSFORMATIONS will be reset as:
+min( sum_MaxTransformations_fields, N_TRANSFORMATIONS) )
+'''
 N_TRANSFORMATIONS = 2
 
-# MaxTransformations contains, for each transformation,
-# the number of times that each transformation is performed.
-# Useful to apply some transformations more often ( n > 1 )
-# or to exclude them` altogether ( n = 0 )
+'''
+MaxTransformations contains, for each transformation,
+the number of times that each transformation is performed.
+Useful to apply some transformations more often ( n > 1 )
+or to exclude them` altogether ( n = 0 )
+'''
 class MaxTransformations:
     SALT_PEPPER_NOISE   = 0
     SPECKLE_NOISE       = 0
     GAUSS_NOISE         = 0
+
     BLUR                = 0
-    SHADOW              = 1
+    SHADOW              = 0
     ENHANCEMENTS        = 0
     SHADE_COLORS        = 0
 
     # The following transformations
     # will alter pixel coordinates
-    SHEAR               = 1
-    SKEW                = 1
-    WARP                = 1
+    SHEAR               = 0
+    SKEW                = 0
+    WARP                = 0
     ROTATION            = 1
 
 # MIN/MAX AVG BLURRING
@@ -163,30 +168,31 @@ MAX_CONTRAST   	        = 1.7
 
 # MIN/MAX IMAGE SHARPNESS
 MIN_SHARPNESS   	= 0.1
-MAX_SHARPNESS   	= 3.0
+MIN_SHARPNESS   	= 5.0
 
 # MIN/MAX COLOR SHADING
 MIN_COLOR_SHADE 	= 0.06
 MAX_COLOR_SHADE 	= 0.35
 
 # MAX SHEAR DISTORTION
-MAX_SHEAR        	= 0.1
+MAX_SHEAR        	= 0.05
 
 # MAX SKEW DISTORTION
-MAX_SKEW        	= 0.1
+MAX_SKEW        	= 0.05
 
 # MIN/MAX WARP DISTORTION
 MIN_WARP        	= 14
 MAX_WARP        	= 50
 
 # MIN/MAX ROTATION ANGLE
-MAX_ANGLE        	= 0.1
+MAX_ANGLE        	= 0.02
 
 # By default s&p and speckle noise
 # is followed by blurring
-ADD_BLUR_AFTER_SP_AND_SPECKLE_NOISE = True
+ADD_BLUR_AFTER_SPECKLE_NOISE = False
+ADD_BLUR_AFTER_SP_NOISE      = False
 
-READ_IMAGE_AS_GRAYSCALE = True
+READ_IMAGE_AS_GRAYSCALE = False
 ```
 
 
