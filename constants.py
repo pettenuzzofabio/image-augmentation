@@ -5,14 +5,26 @@ import random
 
 from enum import Enum
 
-
 ### CONSTANTS MEANT TO BE EDITED ###
 
 # default number of files given as output for each input image
 N_FILES_OUTPUT    = 20
 
 # allowed input images extensions
-IMAGE_EXTENSIONS  = [ ".jpg", ".jpeg", ".png" ]
+IMAGE_EXTENSIONS  = [ ".jpg",
+                      ".jpeg",
+                      ".png",
+                      ".bmp",
+                      ".jp2",
+                      ".dib",
+                      ".webp",
+                      ".sr",
+                      ".ras",
+                      ".tiff",
+                      ".tif",
+                      ".pbm",
+                      ".pgm",
+                      ".ppm" ]
 
 # default input images path
 FILES_INPUT_PATH  = "./input/"
@@ -20,34 +32,38 @@ FILES_INPUT_PATH  = "./input/"
 # default output images path
 FILES_OUTPUT_PATH = "./output/"
 
-# max number of transformations
-# that are randomly applied for each output image.
-# If N_TRANSFORMATIONS > total number of transformations
-# specified in the MaxTransformations field
-# N_TRANSFORMATIONS will be reset as:
-# min( sum_MaxTransformations_fields, N_TRANSFORMATIONS) )
-N_TRANSFORMATIONS = 2
+'''
+max number of transformations
+that are randomly applied for each output image.
+If N_TRANSFORMATIONS > total number of transformations
+specified in the MaxTransformation field
+N_TRANSFORMATIONS will be reset as:
+min( sum_MaxTransformation_fields, N_TRANSFORMATIONS) )
+'''
+N_TRANSFORMATIONS = 200
 
-# MaxTransformations contains, for each transformation,
-# the number of times that each transformation is performed.
-# Useful to apply some transformations more often ( n > 1 )
-# or to exclude them` altogether ( n = 0 )
-class MaxTransformations:
-    SALT_PEPPER_NOISE   = 0
-    SPECKLE_NOISE       = 0
-    GAUSS_NOISE         = 0
+'''
+MaxTransformation contains, for each transformation,
+the number of times that each transformation is performed.
+Useful to apply some transformations more often ( n > 1 )
+or to exclude them` altogether ( n = 0 )
+'''
+class MaxTransformation:
+    SALT_PEPPER_NOISE   = 5
+    SPECKLE_NOISE       = 5
+    GAUSS_NOISE         = 5
 
-    BLUR                = 0
-    SHADOW              = 0
-    ENHANCEMENTS        = 0
-    SHADE_COLORS        = 0
+    BLUR                = 5
+    SHADOW              = 5
+    ENHANCEMENTS        = 5
+    SHADE_COLOR         = 5
 
     # The following transformations
     # will alter pixel coordinates
-    SHEAR               = 0
-    SKEW                = 0
-    WARP                = 0
-    ROTATION            = 1
+    SHEAR               = 5
+    SKEW                = 5
+    WARP                = 5
+    ROTATION            = 5
 
 # MIN/MAX AVG BLURRING
 MIN_BLUR 		= 1
@@ -79,7 +95,7 @@ MAX_CONTRAST   	        = 1.7
 
 # MIN/MAX IMAGE SHARPNESS
 MIN_SHARPNESS   	= 0.1
-MIN_SHARPNESS   	= 5.0
+MAX_SHARPNESS   	= 5.0
 
 # MIN/MAX COLOR SHADING
 MIN_COLOR_SHADE 	= 0.06
@@ -100,9 +116,10 @@ MAX_ANGLE        	= 0.02
 
 # By default s&p and speckle noise
 # is followed by blurring
-ADD_BLUR_AFTER_SP_AND_SPECKLE_NOISE = False
+ADD_BLUR_AFTER_SPECKLE_NOISE = False
+ADD_BLUR_AFTER_SP_NOISE      = False
 
-READ_IMAGE_AS_GRAYSCALE = False
+READ_IMAGE_AS_GRAYSCALE = True
 
 
 ### PAY ATTENTION BEFORE EDITING THE FOLLOWING CONSTANTS ###
