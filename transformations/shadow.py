@@ -8,6 +8,7 @@ import cv2
 import noise
 import numpy as np
 
+
 def add_n_random_shadows(image, n = 4, blur_scale = 1.0):
 	intensity = np.random.uniform(constants.MIN_SHADOW, constants.MAX_SHADOW)
 	return add_n_shadows(image, n, intensity, blur_scale)
@@ -25,6 +26,7 @@ def add_n_shadows(image, n = 4, intensity = 0.5, blur_scale = 1.0):
 			image = add_single_light(image, intensity, blur_width)
 		else:
 			image = add_single_shadow(image, intensity, blur_width)
+
 	return image
 
 def add_n_triangles_light(image, n, intensity = 0.5, blur_width = 6):
@@ -34,7 +36,11 @@ def add_n_triangles_light(image, n, intensity = 0.5, blur_width = 6):
 
 def add_n_triangles_shadow(image, n, intensity = 0.5, blur_width = 6):
 	for i in range(n):
-		image = add_polygon_shadow(image, 3, intensity, blur_width)
+		image = add_polygon_shadow(image,
+					   n_sides = 3,
+					   intensity = intensity,
+					   blur_width = blur_width)
+
 	return image
 
 # tip: just stick with triangles, other polygons have incoherent shades
@@ -54,6 +60,14 @@ def add_polygon_shadow(image, n_sides = 3, intensity = 0.5, blur_width = 6):
 	points3 = __scale_points(points.copy(), centre, 2)
 	points4 = __scale_points(points.copy(), centre, 2.5)
 
+	'''
+	This line shouldn't be necessary, but it solves the error
+	"typeerror: the layout array is incompatible with..."
+	in some rare images.
+	This is due to a bug in the python opencv wrapper.
+	It may be needed also elsewhere.
+	'''
+	shadow_mask = shadow_mask.copy()
 	cv2.fillPoly(shadow_mask, [points4], constants.DARK_WHITE)
 	cv2.fillPoly(shadow_mask, [points3], constants.LIGHT_GRAY)
 	cv2.fillPoly(shadow_mask, [points2], constants.GRAY)
@@ -76,96 +90,114 @@ def add_single_shadow(image, intensity = 0.5, blur_width = 8):
 	x_m = np.mgrid[0 : h, 0 : w][0]
 	y_m = np.mgrid[0 : h, 0 : w][1]
 	shadow_mask = 0 * image
-	shadow_mask[((x_m - top_x)*(bot_y - top_y) - (bot_x - top_x)*(y_m - top_y) >= 0)] = constants.DARK_GRAY
+	mask_dark_gray = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
+	shadow_mask[mask_dark_gray >= 0] = constants.DARK_GRAY
 
 	space = 50
 	if (bot_x < top_x and top_y > bot_y):
-		shadow_mask[((x_m - top_x) * (bot_y - top_y) - (bot_x - top_x) * (y_m - top_y) < 0)] = constants.LIGHT_BLACK
+		shadow_mask[mask_dark_gray < 0] = constants.LIGHT_BLACK
 		top_x -= __get_random_space(space)
 		bot_x -= __get_random_space(space)
 		top_y += __get_random_space(space)
 		bot_y += __get_random_space(space)
-		shadow_mask[((x_m - top_x) * (bot_y - top_y) - (bot_x - top_x) * (y_m - top_y) >= 0)] = constants.GRAY
+		mask_gray = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
+		shadow_mask[mask_gray >= 0] = constants.GRAY
 		top_x -= __get_random_space(space)
 		bot_x -= __get_random_space(space)
 		top_y += __get_random_space(space)
 		bot_y += __get_random_space(space)
-		shadow_mask[((x_m - top_x) * (bot_y - top_y) - (bot_x - top_x) * (y_m - top_y) >= 0)] = constants.LIGHT_GRAY
+		mask_light_gray = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
+		shadow_mask[mask_light_gray >= 0] = constants.LIGHT_GRAY
 		top_x -= __get_random_space(space)
 		bot_x -= __get_random_space(space)
 		top_y += __get_random_space(space)
 		bot_y += __get_random_space(space)
-		shadow_mask[((x_m - top_x) * (bot_y - top_y) - (bot_x - top_x) * (y_m - top_y) >= 0)] = constants.DARK_WHITE
+		mask_dark_white = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
+		shadow_mask[mask_dark_white >= 0] = constants.DARK_WHITE
 
 	if (bot_x < top_x and top_y < bot_y):
-		shadow_mask[((x_m - top_x) * (bot_y - top_y) - (bot_x - top_x) * (y_m - top_y) < 0)] = constants.LIGHT_BLACK
+		shadow_mask[mask_dark_gray < 0] = constants.LIGHT_BLACK
 		top_x += __get_random_space(space)
 		bot_x += __get_random_space(space)
 		top_y += __get_random_space(space)
 		bot_y += __get_random_space(space)
-		shadow_mask[((x_m - top_x) * (bot_y - top_y) - (bot_x - top_x) * (y_m - top_y) >= 0)] = constants.GRAY
+		mask_gray = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
+		shadow_mask[mask_gray >= 0] = constants.GRAY
 		top_x += __get_random_space(space)
 		bot_x += __get_random_space(space)
 		top_y += __get_random_space(space)
 		bot_y += __get_random_space(space)
-		shadow_mask[((x_m - top_x) * (bot_y - top_y) - (bot_x - top_x) * (y_m - top_y) >= 0)] = constants.LIGHT_GRAY
+		mask_light_gray = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
+		shadow_mask[mask_light_gray >= 0] = constants.LIGHT_GRAY
 		top_x += __get_random_space(space)
 		bot_x += __get_random_space(space)
 		top_y += __get_random_space(space)
 		bot_y += __get_random_space(space)
-		shadow_mask[((x_m - top_x) * (bot_y - top_y) - (bot_x - top_x) * (y_m - top_y) >= 0)] = constants.DARK_WHITE
+		mask_dark_white = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
+		shadow_mask[mask_dark_white >= 0] = constants.DARK_WHITE
 
 	if (bot_x > top_x and top_y > bot_y):
-		shadow_mask[((x_m - top_x) * (bot_y - top_y) - (bot_x - top_x) * (y_m - top_y) < 0)] = constants.LIGHT_BLACK
+		shadow_mask[mask_dark_gray < 0] = constants.LIGHT_BLACK
 		top_x -= __get_random_space(space)
 		bot_x -= __get_random_space(space)
 		top_y -= __get_random_space(space)
 		bot_y -= __get_random_space(space)
-		shadow_mask[((x_m - top_x) * (bot_y - top_y) - (bot_x - top_x) * (y_m - top_y) >= 0)] = constants.GRAY
+		mask_gray = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
+		shadow_mask[mask_gray >= 0] = constants.GRAY
 		top_x -= __get_random_space(space)
 		bot_x -= __get_random_space(space)
 		top_y -= __get_random_space(space)
 		bot_y -= __get_random_space(space)
-		shadow_mask[((x_m - top_x) * (bot_y - top_y) - (bot_x - top_x) * (y_m - top_y) >= 0)] = constants.LIGHT_GRAY
+		mask_light_gray = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
+		shadow_mask[mask_light_gray >= 0] = constants.LIGHT_GRAY
 		top_x -= __get_random_space(space)
 		bot_x -= __get_random_space(space)
 		top_y -= __get_random_space(space)
 		bot_y -= __get_random_space(space)
-		shadow_mask[((x_m - top_x) * (bot_y - top_y) - (bot_x - top_x) * (y_m - top_y) >= 0)] = constants.DARK_WHITE
+		mask_dark_white = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
+		shadow_mask[mask_dark_white >= 0] = constants.DARK_WHITE
 
 	if (bot_x > top_x and top_y < bot_y):
-		shadow_mask[((x_m - top_x) * (bot_y - top_y) - (bot_x - top_x) * (y_m - top_y) < 0)] = constants.LIGHT_BLACK
+		shadow_mask[mask_dark_gray < 0] = constants.LIGHT_BLACK
 		top_x += __get_random_space(space)
 		bot_x += __get_random_space(space)
 		top_y -= __get_random_space(space)
 		bot_y -= __get_random_space(space)
-		shadow_mask[((x_m - top_x) * (bot_y - top_y) - (bot_x - top_x) * (y_m - top_y) >= 0)] = constants.GRAY
+		mask_gray = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
+		shadow_mask[mask_gray >= 0] = constants.GRAY
 		top_x += __get_random_space(space)
 		bot_x += __get_random_space(space)
 		top_y -= __get_random_space(space)
 		bot_y -= __get_random_space(space)
-		shadow_mask[((x_m - top_x) * (bot_y - top_y) - (bot_x - top_x) * (y_m - top_y) >= 0)] = constants.LIGHT_GRAY
+		mask_light_gray = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
+		shadow_mask[mask_light_gray >= 0] = constants.LIGHT_GRAY
 		top_x += __get_random_space(space)
 		bot_x += __get_random_space(space)
 		top_y -= __get_random_space(space)
 		bot_y -= __get_random_space(space)
-		shadow_mask[((x_m - top_x) * (bot_y - top_y) - (bot_x - top_x) * (y_m - top_y) >= 0)] = constants.DARK_WHITE
+		mask_dark_white = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
+		shadow_mask[mask_dark_white >= 0] = constants.DARK_WHITE
 
 	return __apply_shadow_mask(image, blur_width, intensity, shadow_mask)
+
+
+def __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m):
+	return (x_m - top_x) * (bot_y - top_y) - (bot_x - top_x) * (y_m - top_y)
 
 def __get_points(n_sides, image):
 	points = []
 	h, w = image.shape[:2]
 	for i in range(n_sides):
 		points.append([np.int32(w * 1.5 * np.random.uniform() - w * 0.25),
-					   np.int32(h * 1.5 * np.random.uniform() - h * 0.25)])
+			       np.int32(h * 1.5 * np.random.uniform() - h * 0.25)])
+
 	points = np.array(points)
 	points = points.reshape((-1, 1, 2))
 	return points
 
 def __scale_points(points, centre, scale):
 	for p in points:
-		p = [__scale_point(p[0], centre, scale + np.random.uniform()/2)]
+		__scale_point(p[0], centre, scale = scale + np.random.uniform()/2)
 
 	return points
 
@@ -176,7 +208,10 @@ def __scale_point(point, centre, scale = 0.1):
 def __get_centre(points):
 	sum_points = sum(points[1:], points[0])[0]
 	n_points = len(points)
-	return (__get_average(n_points, sum_points[0]), __get_average(n_points, sum_points[1]))
+	return (
+		__get_average(n_points, sum_points[0]),
+		__get_average(n_points, sum_points[1]),
+		)
 
 def __get_average(n_points, sum):
 	return int(round(sum / n_points))
@@ -200,6 +235,7 @@ def __random_normalize_shadow_mask(shadow_mask):
 def __normalize_shadow_mask(blur_width, intensity, shadow_mask):
 	shadow_mask = noise.blur(shadow_mask, blur_width)
 	normalized_mask = (shadow_mask / 250.0)
+	normalized_mask = normalized_mask + (1.0 - normalized_mask) * (1.0 - intensity)
 	ones_matrix = 0*shadow_mask + 1.0
-	normalized_mask = np.minimum(normalized_mask + (1.0 - normalized_mask) * (1.0 - intensity) ,  ones_matrix)
+	normalized_mask = np.minimum(normalized_mask, ones_matrix)
 	return normalized_mask
