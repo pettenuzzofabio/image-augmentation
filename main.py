@@ -15,20 +15,22 @@ import cv2
 
 
 def main(args):
-	file_names = __get_files_path(args.input)
+	file_name_list = __get_files_path(args.input)
 	output_path = __normalize_output_path(args.output)
 	n_transformations = args.n
 
-	for full_name in file_names :
+	for full_name in file_name_list :
 		_, name = os.path.split(full_name)
 		if (constants.READ_IMAGE_AS_GRAYSCALE):
 			image = cv2.imread(full_name, 0)
 		else:
 			image = cv2.imread(full_name)
+
 		start = time.time()
 		images_list = augment.get_n_augmented_images(image, n_output_list = n_transformations)
 		end = time.time()
-		print("Image " + name + " augmented " + str(n_transformations) + " times in " + str("%.3f" % (end - start)) + " seconds")
+		print("Image " + name + " augmented " + str(n_transformations) +
+		      " times in " + str("%.3f" % (end - start)) + " seconds")
 
 		augment.write_images(name, images_list, output_path)
 
@@ -38,9 +40,12 @@ def __get_files_path(path):
 
 	files_path = []
 	if (os.path.isdir(path)):
-		files_path.extend([ path + "\\" + f for f in listdir(path) if isfile(join(path, f))])
+		files_path.extend([ path + "\\" + f for f in listdir(path)
+				    		if isfile(join(path, f))])
+
 	else:
 		files_path.extend([ path ])
+
 	return files_path
 
 def __validate_path(path):
@@ -63,18 +68,23 @@ def __parse_arguments():
 
 	parser.add_argument(
 		'--input', nargs='?', type=str, default=str(constants.FILES_INPUT_PATH),
-		help='input files path, default: all images ' + str(', '.join(constants.IMAGE_EXTENSIONS)) + ' in ' + str(constants.FILES_INPUT_PATH)
+		help='input files path, default: all images ' +
+		     str(', '.join(constants.IMAGE_EXTENSIONS)) + ' in ' +
+		     str(constants.FILES_INPUT_PATH)
 	)
 
 	parser.add_argument(
-		'--output', nargs='?', type=str, default=str(os.path.abspath(constants.FILES_OUTPUT_PATH)),
+		'--output', nargs='?', type=str,
+		default=str(os.path.abspath(constants.FILES_OUTPUT_PATH)),
 		help='output files path, default: ' + str(constants.FILES_OUTPUT_PATH)
 	)
 
 	parser.add_argument(
 		'--n', nargs='?', type=int, default=constants.N_FILES_OUTPUT,
-		help='number of output images for each input image, default: ' + str(constants.N_FILES_OUTPUT)
+		help='number of output images for each input image, default: ' +
+		     str(constants.N_FILES_OUTPUT)
 	)
+
 	return parser.parse_args()
 
 if __name__ == "__main__":
