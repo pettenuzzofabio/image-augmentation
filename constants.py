@@ -40,7 +40,7 @@ specified in the MaxTransformation field
 N_TRANSFORMATIONS will be reset as:
 min( sum_MaxTransformation_fields, N_TRANSFORMATIONS) )
 '''
-N_TRANSFORMATIONS = 200
+N_TRANSFORMATIONS = 2
 
 '''
 MaxTransformation contains, for each transformation,
@@ -49,21 +49,21 @@ Useful to apply some transformations more often ( n > 1 )
 or to exclude them` altogether ( n = 0 )
 '''
 class MaxTransformation:
-    SALT_PEPPER_NOISE   = 5
-    SPECKLE_NOISE       = 5
-    GAUSS_NOISE         = 5
-    BLUR                = 5
+    SALT_PEPPER_NOISE   = 1
+    SPECKLE_NOISE       = 1
+    GAUSS_NOISE         = 1
+    BLUR                = 1
 
-    SHADOW              = 5
-    ENHANCEMENTS        = 5
-    SHADE_COLOR         = 5
+    SHADOW              = 1
+    ENHANCEMENTS        = 1
+    SHADE_COLOR         = 1
 
     # The following transformations
     # will alter pixel coordinates
-    SHEAR               = 5
-    SKEW                = 5
-    WARP                = 5
-    ROTATION            = 5
+    SHEAR               = 1
+    SKEW                = 1
+    WARP                = 1
+    ROTATION            = 1
 
 # MIN/MAX AVG BLURRING
 MIN_BLUR 		= 1
