@@ -52,8 +52,8 @@ class MaxTransformation:
     SALT_PEPPER_NOISE   = 5
     SPECKLE_NOISE       = 5
     GAUSS_NOISE         = 5
-
     BLUR                = 5
+
     SHADOW              = 5
     ENHANCEMENTS        = 5
     SHADE_COLOR         = 5
@@ -119,7 +119,7 @@ MAX_ANGLE        	= 0.02
 ADD_BLUR_AFTER_SPECKLE_NOISE = False
 ADD_BLUR_AFTER_SP_NOISE      = False
 
-READ_IMAGE_AS_GRAYSCALE = True
+READ_IMAGE_AS_GRAYSCALE = False
 
 
 ### PAY ATTENTION BEFORE EDITING THE FOLLOWING CONSTANTS ###
