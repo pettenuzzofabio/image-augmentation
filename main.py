@@ -21,7 +21,7 @@ def main(args):
 
 	for full_name in file_name_list :
 		_, name = os.path.split(full_name)
-		if (constants.READ_IMAGE_AS_GRAYSCALE):
+		if constants.READ_IMAGE_AS_GRAYSCALE:
 			image = cv2.imread(full_name, 0)
 		else:
 			image = cv2.imread(full_name)
@@ -39,7 +39,7 @@ def __get_files_path(path):
 	__validate_path(path)
 
 	files_path = []
-	if (os.path.isdir(path)):
+	if os.path.isdir(path):
 		files_path.extend([ path + "\\" + f for f in listdir(path)
 				    		if isfile(join(path, f))])
 
@@ -49,12 +49,12 @@ def __get_files_path(path):
 	return files_path
 
 def __validate_path(path):
-	if (not os.path.exists(path)):
+	if not os.path.exists(path):
 		print("The path " + path + " is not valid.")
 		sys.exit()
 
 def __normalize_output_path(path):
-	if (not os.path.isdir(path)):
+	if not os.path.isdir(path):
 		try:
 			os.makedirs(path)
 		except:
