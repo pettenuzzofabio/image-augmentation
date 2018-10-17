@@ -2,9 +2,11 @@
 # -*- coding: UTF-8 -*-
 
 import math
+
+import constants
 import cv2
 import numpy as np
-import constants
+
 
 def get_random_rotation(image, max_angle = constants.MAX_ANGLE):
 	max_angle = abs(max_angle)
