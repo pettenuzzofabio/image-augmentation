@@ -11,13 +11,13 @@ import numpy as np
 def add_n_random_blur(image, n=randint(1, 4)):
     for i in range(n):
         choice = np.random.uniform(0, 4)
-        if (choice < 1):
+        if choice < 1:
             image = blur(image, randint(1, 3))
-        elif (choice < 2):
+        elif choice < 2:
             image = get_gauss_noise(image, randint(1, 100))
-        elif (choice < 3):
+        elif choice < 3:
             image = get_saltpepper_noise(image, np.random.uniform(0.0001, 0.001))
-        elif (choice < 4):
+        elif choice < 4:
             image = get_speckle_noise(image, np.random.uniform(0.01, 0.3))
 
     return image
@@ -26,9 +26,9 @@ def add_n_random_blur(image, n=randint(1, 4)):
 def add_random_blur(image):
     max_blur = constants.MAX_BLUR
     max_dimension = max(image.shape)
-    if (max_dimension < 2000 and max_blur > 2):
+    if max_dimension < 2000 and max_blur > 2:
         max_blur -= 1
-        if (max_dimension < 1000 and max_blur > 1):
+        if max_dimension < 1000 and max_blur > 1:
             max_blur -= 1
 
     intensity = randint(constants.MIN_BLUR, max_blur)
@@ -45,9 +45,9 @@ def blur(image, width=9):
 
 def get_blur_given_intensity(intensity, blur_scale):
     intensity = intensity * blur_scale
-    if (intensity < 0.4):
+    if intensity < 0.4:
         return 5
-    elif (intensity < 0.5):
+    elif intensity < 0.5:
         return 6
     return 7
 
@@ -61,7 +61,7 @@ def get_gauss_noise(image, intensity=1):
     mean = 0
     sigma = intensity ** 0.5
 
-    if(len(image.shape) > 2):
+    if len(image.shape) > 2:
         h, w, ch = image.shape
         gauss = np.random.normal(mean, sigma, (h, w, ch))
         gauss = gauss.reshape(h, w, ch)
@@ -100,7 +100,7 @@ def get_saltpepper_noise(image, intensity=0.0001, add_blur=constants.ADD_BLUR_AF
     num_pepper = np.ceil(intensity * image.size * (1. - s_vs_p))
     coords = __get_coordinates_saltpepper(image, num_pepper)
     saltpepper[coords] = 0
-    if (add_blur):
+    if add_blur:
         return blur(saltpepper, width=1)
 
     return saltpepper
@@ -121,7 +121,7 @@ def get_speckle_noise(image, intensity=0.1, add_blur=constants.ADD_BLUR_AFTER_SP
     intensity *= 127.5
 
     # -intensity/2 <= speckle <= intensity/2
-    if(len(image.shape) > 2):
+    if len(image.shape) > 2:
         h, w, ch = image.shape
         speckle = -intensity / 2 + np.random.randn(h, w, ch) * intensity
         speckle = speckle.reshape(h, w, ch)
@@ -132,7 +132,7 @@ def get_speckle_noise(image, intensity=0.1, add_blur=constants.ADD_BLUR_AFTER_SP
 
     speckle = image + speckle
     speckle = __get_normalized_image(speckle)
-    if (add_blur and intensity > 26):
+    if add_blur and intensity > 26:
         return blur(speckle, width=1)
 
     return speckle
