@@ -60,29 +60,33 @@ def skew_image(image, factor):
 
 	direction = np.random.choice(['UP', 'DOWN', 'LEFT', 'RIGHT'])
 	if direction == 'UP':
-		points2 = np.float32([[0, 0],
-				      [w, 0],
-				      [int(w * factor), h],
-				      [w - int(w * factor), h]
-				      ])
+		points2 = np.float32([
+					[0, 0],
+				      	[w, 0],
+				      	[int(w * factor), h],
+				      	[w - int(w * factor), h]
+				      	])
 	elif direction == 'LEFT':
-		points2 = np.float32([[0, 0],
-				      [w, int(h * factor)],
-				      [0, h],
-				      [w, int(h - h * factor)]
-				      ])
+		points2 = np.float32([
+					[0, 0],
+				      	[w, int(h * factor)],
+				      	[0, h],
+				      	[w, int(h - h * factor)]
+				      	])
 	elif direction == 'RIGHT':
-		points2 = np.float32([[0, int(h * factor)],
-				      [w, 0],
-				      [0, int(h - h * factor)],
-				      [w, h]
-				      ])
+		points2 = np.float32([
+					[0, int(h * factor)],
+				      	[w, 0],
+				      	[0, int(h - h * factor)],
+				     	[w, h]
+				      	])
 	else:
-		points2 = np.float32([[int(w * factor), 0],
-				      [w - int(w * factor), 0],
-				      [0, h],
-				      [w, h]
-				      ])
+		points2 = np.float32([
+					[int(w * factor), 0],
+				      	[w - int(w * factor), 0],
+				      	[0, h],
+				      	[w, h]
+				      	])
 
 	transform_matrix = cv2.getPerspectiveTransform(points1, points2)
 	return cv2.warpPerspective(image, transform_matrix, (w, h))
@@ -110,17 +114,17 @@ def warp_image(image, factor):
 				if warp_direction == 'X':
 					image_output[y, x] = image[
 								y,
-								__normalize((x + offset_x), w)
+								__normalize((x + offset_x), w),
 								]
 				elif warp_direction == 'Y':
 					image_output[y, x] = image[
 								__normalize((y + offset_y), h),
-								x
+								x,
 								]
 				else:
 					image_output[y, x] = image[
 								__normalize((y + offset_y), h),
-								__normalize((x + offset_x), w)
+								__normalize((x + offset_x), w),
 								]
 
 			else:
