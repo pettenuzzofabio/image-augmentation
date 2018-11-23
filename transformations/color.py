@@ -17,21 +17,24 @@ def get_enhanced_image(image, enhancement = None):
 
 	pil_im = Image.fromarray(image)
 	if enhancement == constants.Enhancement.brightness:
-		factor = np.random.uniform(constants.MIN_BRIGHTNESS,
-					   constants.MAX_BRIGHTNESS,
-					   )
+		factor = np.random.uniform(
+					constants.MIN_BRIGHTNESS,
+					constants.MAX_BRIGHTNESS,
+					)
 		enhancer = ImageEnhance.Brightness(pil_im)
 
 	elif enhancement == constants.Enhancement.contrast:
-		factor = np.random.uniform(constants.MIN_CONTRAST,
-					   constants.MAX_CONTRAST,
-					   )
+		factor = np.random.uniform(
+					constants.MIN_CONTRAST,
+					constants.MAX_CONTRAST,
+					)
 		enhancer = ImageEnhance.Contrast(pil_im)
 
 	else:
-		factor = np.random.uniform(constants.MIN_SHARPNESS,
-					   constants.MAX_SHARPNESS,
-					   )
+		factor = np.random.uniform(
+					constants.MIN_SHARPNESS,
+					constants.MAX_SHARPNESS,
+					)
 		enhancer = ImageEnhance.Sharpness(pil_im)
 
 	enhanced = enhancer.enhance(factor)
@@ -41,9 +44,10 @@ def random_color_shade(image, channels_format = None):
 	if channels_format == None:
 		channels_format = constants.Channels.get_random()
 
-	intensity = np.random.uniform(constants.MIN_COLOR_SHADE,
-				      constants.MAX_COLOR_SHADE,
-				      )
+	intensity = np.random.uniform(
+					constants.MIN_COLOR_SHADE,
+				      	constants.MAX_COLOR_SHADE,
+				      	)
 	if channels.is_monochannel(image):
 	 	image = change_random_channel_gray(image, intensity)
 	elif channels_format == constants.Channels.bgr:
