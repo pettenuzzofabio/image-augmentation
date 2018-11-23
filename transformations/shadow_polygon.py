@@ -35,7 +35,7 @@ def add_polygon_light(image, n_sides = 3, intensity = 0.5, blur_width = 6):
 # tip: just stick with triangles, other polygons have incoherent shades
 def add_polygon_shadow(image, n_sides = 3, intensity = 0.5, blur_width = 6):
 	if len(image.shape) > 2:
-		shadow_mask = 0 * image[:,:,0] + constants.WHITE
+		shadow_mask = 0 * image[:, :, 0] + constants.WHITE
 	else:
 		shadow_mask = 0 * image + constants.WHITE
 
