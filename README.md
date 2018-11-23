@@ -199,7 +199,7 @@ READ_IMAGE_AS_GRAYSCALE = False
 
 ## Future developments
 
-- Augment bounding boxes (and possibly other landmarks) in the exactly same way as the augmented image, in order to better use transformations which alter pixel coordinates.
+- Augment bounding boxes (and possibly other landmarks) in the exact same way as the augmented image, in order to better use transformations which alter pixel coordinates.
 This can be accomplished by using `random.seed()`
 - Add ellipses shadows
 - Optimize & add multi threading
