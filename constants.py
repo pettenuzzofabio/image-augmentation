@@ -24,7 +24,8 @@ IMAGE_EXTENSIONS  = [ ".jpg",
                       ".tif",
                       ".pbm",
                       ".pgm",
-                      ".ppm" ]
+                      ".ppm",
+                      ]
 
 # default input images path
 FILES_INPUT_PATH  = "./input/"
