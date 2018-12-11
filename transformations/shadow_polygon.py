@@ -3,10 +3,8 @@
 
 from random import randint
 
-import channels
 import constants
 import cv2
-import noise
 import numpy as np
 import shadow_mask as mask
 
