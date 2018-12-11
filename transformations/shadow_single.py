@@ -3,10 +3,7 @@
 
 from random import randint
 
-import channels
 import constants
-import cv2
-import noise
 import numpy as np
 import shadow_mask as mask
 
@@ -25,7 +22,7 @@ def add_single_shadow(image, intensity = 0.5, blur_width = 8):
 	x_m = np.mgrid[0 : h, 0 : w][0]
 	y_m = np.mgrid[0 : h, 0 : w][1]
 	if len(image.shape) > 2:
-		shadow_mask = 0 * image[ : , : , 0]
+		shadow_mask = 0 * image[ :, :, 0]
 	else:
 		shadow_mask = 0 * image
 
