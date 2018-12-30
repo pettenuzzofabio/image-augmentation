@@ -201,7 +201,7 @@ READ_IMAGE_AS_GRAYSCALE = False
 
 - Augment bounding boxes (and possibly other landmarks) in the exact same way as the augmented image, in order to better use transformations which alter pixel coordinates.
 This can be accomplished by using `random.seed()`
-- Add ellipses shadows
+- Add scale from center
 - Optimize & add multi threading
 - Image flip: this hasn't been implemented yet because for my purpose I need to distinguish between Left-something and Right-something
 - Add requirements.txt
