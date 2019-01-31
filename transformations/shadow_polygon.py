@@ -3,16 +3,16 @@
 
 from random import randint
 
-import constants
+import constants as const
 import cv2
 import numpy as np
-import shadow_mask as mask
+import transformations.shadow_mask as mask
 
 
 def add_n_triangles_light(image, intensity = 0.5, blur_width = 6, n = 1):
-	inverted_colors = constants.WHITE - image
+	inverted_colors = const.WHITE - image
 	inverted_shadow = add_n_triangles_shadow(inverted_colors, intensity, blur_width, n)
-	return constants.WHITE - inverted_shadow
+	return const.WHITE - inverted_shadow
 
 def add_n_triangles_shadow(image, intensity = 0.5, blur_width = 6, n = 1):
 	for i in range(n):
@@ -26,16 +26,16 @@ def add_n_triangles_shadow(image, intensity = 0.5, blur_width = 6, n = 1):
 
 # tip: just stick with triangles, other polygons have incoherent shades
 def add_polygon_light(image, n_sides = 3, intensity = 0.5, blur_width = 6):
-	inverted_colors = constants.WHITE - image
+	inverted_colors = const.WHITE - image
 	inverted_shadow = add_polygon_shadow(inverted_colors, n_sides, intensity, blur_width)
-	return constants.WHITE - inverted_shadow
+	return const.WHITE - inverted_shadow
 
 # tip: just stick with triangles, other polygons have incoherent shades
 def add_polygon_shadow(image, n_sides = 3, intensity = 0.5, blur_width = 6):
 	if len(image.shape) > 2:
-		shadow_mask = 0 * image[:, :, 0] + constants.WHITE
+		shadow_mask = 0 * image[:, :, 0] + const.WHITE
 	else:
-		shadow_mask = 0 * image + constants.WHITE
+		shadow_mask = 0 * image + const.WHITE
 
 	points = __get_points(n_sides, shadow_mask)
 
@@ -53,11 +53,11 @@ def add_polygon_shadow(image, n_sides = 3, intensity = 0.5, blur_width = 6):
 	It may be needed also elsewhere.
 	'''
 	shadow_mask = shadow_mask.copy()
-	cv2.fillPoly(shadow_mask, [points4], constants.DARK_WHITE)
-	cv2.fillPoly(shadow_mask, [points3], constants.LIGHT_GRAY)
-	cv2.fillPoly(shadow_mask, [points2], constants.GRAY)
-	cv2.fillPoly(shadow_mask, [points] , constants.DARK_GRAY)
-	cv2.fillPoly(shadow_mask, [points1], constants.LIGHT_BLACK)
+	cv2.fillPoly(shadow_mask, [points4], const.DARK_WHITE)
+	cv2.fillPoly(shadow_mask, [points3], const.LIGHT_GRAY)
+	cv2.fillPoly(shadow_mask, [points2], const.GRAY)
+	cv2.fillPoly(shadow_mask, [points] , const.DARK_GRAY)
+	cv2.fillPoly(shadow_mask, [points1], const.LIGHT_BLACK)
 
 	return mask.apply_shadow_mask(image, blur_width, intensity, shadow_mask)
 
