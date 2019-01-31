@@ -3,16 +3,16 @@
 
 from random import randint
 
-import constants
+import constants as const
 import cv2
 import numpy as np
-import shadow_mask as mask
+import transformations.shadow_mask as mask
 
 
 def add_n_ellipses_light(image, intensity = 0.5, blur_width = 6, n = 1):
-	inverted_colors = constants.WHITE - image
+	inverted_colors = const.WHITE - image
 	inverted_shadow = add_n_ellipses_shadow(inverted_colors, intensity, blur_width, n)
-	return constants.WHITE - inverted_shadow
+	return const.WHITE - inverted_shadow
 
 def add_n_ellipses_shadow(image, intensity = 0.5, blur_width = 6, n = 1):
 	for i in range(n):
@@ -24,15 +24,16 @@ def add_n_ellipses_shadow(image, intensity = 0.5, blur_width = 6, n = 1):
 	return image
 
 def add_ellipse_light(image, intensity = 0.5, blur_width = 6):
-	inverted_colors = constants.WHITE - image
+	inverted_colors = const.WHITE - image
 	inverted_shadow = add_ellipse_shadow(inverted_colors, intensity, blur_width)
-	return constants.WHITE - inverted_shadow
+	return const.WHITE - inverted_shadow
 
 def add_ellipse_shadow(image, intensity = 0.5, blur_width = 6):
+
 	if len(image.shape) > 2:
-		shadow_mask = 0 * image[:, :, 0] + constants.WHITE
+		shadow_mask = 0 * image[:, :, 0] + const.WHITE # todo: use imga = zeros([100,100,3], dtype=np.uint8)    img.fill(255) # or img[:] = 255
 	else:
-		shadow_mask = 0 * image + constants.WHITE
+		shadow_mask = 0 * image + const.WHITE
 
 	ellipse = __get_multiple_ellipses(shadow_mask)
 
@@ -50,11 +51,11 @@ def __get_multiple_ellipses(image, scale = 0.3):
 	axes5 = int(random_h), int(random_w)
 	angle = 360 * np.random.uniform()
 
-	ellipse = get_single_ellipse(image,   center, axes5, angle, constants.DARK_WHITE)
-	ellipse = get_single_ellipse(ellipse, center, axes4, angle, constants.LIGHT_GRAY)
-	ellipse = get_single_ellipse(ellipse, center, axes3, angle, constants.GRAY)
-	ellipse = get_single_ellipse(ellipse, center, axes2, angle, constants.DARK_GRAY)
-	return get_single_ellipse(ellipse, center, axes1, angle, constants.LIGHT_BLACK)
+	ellipse = get_single_ellipse(image,   center, axes5, angle, const.DARK_WHITE)
+	ellipse = get_single_ellipse(ellipse, center, axes4, angle, const.LIGHT_GRAY)
+	ellipse = get_single_ellipse(ellipse, center, axes3, angle, const.GRAY)
+	ellipse = get_single_ellipse(ellipse, center, axes2, angle, const.DARK_GRAY)
+	return get_single_ellipse(ellipse, center, axes1, angle, const.LIGHT_BLACK)
 
 def get_single_ellipse(image, center, axes, angle, color):
 	start_angle = 0
