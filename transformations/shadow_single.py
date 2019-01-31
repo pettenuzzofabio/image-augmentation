@@ -3,15 +3,15 @@
 
 from random import randint
 
-import constants
+import constants as const
 import numpy as np
-import shadow_mask as mask
+import transformations.shadow_mask as mask
 
 
 def add_single_light(image, intensity = 0.5, blur_width = 8):
-	inverted_colors = constants.WHITE - image
+	inverted_colors = const.WHITE - image
 	inverted_shadow = add_single_shadow(inverted_colors, intensity, blur_width)
-	return constants.WHITE - inverted_shadow
+	return const.WHITE - inverted_shadow
 
 def add_single_shadow(image, intensity = 0.5, blur_width = 8):
 	h, w = image.shape[ : 2]
@@ -27,92 +27,92 @@ def add_single_shadow(image, intensity = 0.5, blur_width = 8):
 		shadow_mask = 0 * image
 
 	mask_dark_gray = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
-	shadow_mask[mask_dark_gray >= 0] = constants.DARK_GRAY
+	shadow_mask[mask_dark_gray >= 0] = const.DARK_GRAY
 
 	space = 50
 	if bot_x < top_x and top_y > bot_y:
-		shadow_mask[mask_dark_gray < 0] = constants.LIGHT_BLACK
+		shadow_mask[mask_dark_gray < 0] = const.LIGHT_BLACK
 		top_x -= __get_random_space(space)
 		bot_x -= __get_random_space(space)
 		top_y += __get_random_space(space)
 		bot_y += __get_random_space(space)
 		mask_gray = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
-		shadow_mask[mask_gray >= 0] = constants.GRAY
+		shadow_mask[mask_gray >= 0] = const.GRAY
 		top_x -= __get_random_space(space)
 		bot_x -= __get_random_space(space)
 		top_y += __get_random_space(space)
 		bot_y += __get_random_space(space)
 		mask_light_gray = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
-		shadow_mask[mask_light_gray >= 0] = constants.LIGHT_GRAY
+		shadow_mask[mask_light_gray >= 0] = const.LIGHT_GRAY
 		top_x -= __get_random_space(space)
 		bot_x -= __get_random_space(space)
 		top_y += __get_random_space(space)
 		bot_y += __get_random_space(space)
 		mask_dark_white = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
-		shadow_mask[mask_dark_white >= 0] = constants.DARK_WHITE
+		shadow_mask[mask_dark_white >= 0] = const.DARK_WHITE
 
 	if bot_x < top_x and top_y < bot_y:
-		shadow_mask[mask_dark_gray < 0] = constants.LIGHT_BLACK
+		shadow_mask[mask_dark_gray < 0] = const.LIGHT_BLACK
 		top_x += __get_random_space(space)
 		bot_x += __get_random_space(space)
 		top_y += __get_random_space(space)
 		bot_y += __get_random_space(space)
 		mask_gray = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
-		shadow_mask[mask_gray >= 0] = constants.GRAY
+		shadow_mask[mask_gray >= 0] = const.GRAY
 		top_x += __get_random_space(space)
 		bot_x += __get_random_space(space)
 		top_y += __get_random_space(space)
 		bot_y += __get_random_space(space)
 		mask_light_gray = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
-		shadow_mask[mask_light_gray >= 0] = constants.LIGHT_GRAY
+		shadow_mask[mask_light_gray >= 0] = const.LIGHT_GRAY
 		top_x += __get_random_space(space)
 		bot_x += __get_random_space(space)
 		top_y += __get_random_space(space)
 		bot_y += __get_random_space(space)
 		mask_dark_white = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
-		shadow_mask[mask_dark_white >= 0] = constants.DARK_WHITE
+		shadow_mask[mask_dark_white >= 0] = const.DARK_WHITE
 
 	if bot_x > top_x and top_y > bot_y:
-		shadow_mask[mask_dark_gray < 0] = constants.LIGHT_BLACK
+		shadow_mask[mask_dark_gray < 0] = const.LIGHT_BLACK
 		top_x -= __get_random_space(space)
 		bot_x -= __get_random_space(space)
 		top_y -= __get_random_space(space)
 		bot_y -= __get_random_space(space)
 		mask_gray = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
-		shadow_mask[mask_gray >= 0] = constants.GRAY
+		shadow_mask[mask_gray >= 0] = const.GRAY
 		top_x -= __get_random_space(space)
 		bot_x -= __get_random_space(space)
 		top_y -= __get_random_space(space)
 		bot_y -= __get_random_space(space)
 		mask_light_gray = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
-		shadow_mask[mask_light_gray >= 0] = constants.LIGHT_GRAY
+		shadow_mask[mask_light_gray >= 0] = const.LIGHT_GRAY
 		top_x -= __get_random_space(space)
 		bot_x -= __get_random_space(space)
 		top_y -= __get_random_space(space)
 		bot_y -= __get_random_space(space)
 		mask_dark_white = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
-		shadow_mask[mask_dark_white >= 0] = constants.DARK_WHITE
+		shadow_mask[mask_dark_white >= 0] = const.DARK_WHITE
 
 	if bot_x > top_x and top_y < bot_y:
-		shadow_mask[mask_dark_gray < 0] = constants.LIGHT_BLACK
+		shadow_mask[mask_dark_gray < 0] = const.LIGHT_BLACK
 		top_x += __get_random_space(space)
 		bot_x += __get_random_space(space)
 		top_y -= __get_random_space(space)
 		bot_y -= __get_random_space(space)
 		mask_gray = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
-		shadow_mask[mask_gray >= 0] = constants.GRAY
+		shadow_mask[mask_gray >= 0] = const.GRAY
 		top_x += __get_random_space(space)
 		bot_x += __get_random_space(space)
 		top_y -= __get_random_space(space)
 		bot_y -= __get_random_space(space)
 		mask_light_gray = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
-		shadow_mask[mask_light_gray >= 0] = constants.LIGHT_GRAY
+		shadow_mask[mask_light_gray >= 0] = const.LIGHT_GRAY
 		top_x += __get_random_space(space)
 		bot_x += __get_random_space(space)
 		top_y -= __get_random_space(space)
 		bot_y -= __get_random_space(space)
 		mask_dark_white = __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m)
-		shadow_mask[mask_dark_white >= 0] = constants.DARK_WHITE
+		shadow_mask[mask_dark_white >= 0] = const.DARK_WHITE
 
 	return mask.apply_shadow_mask(image, blur_width, intensity, shadow_mask)
 
