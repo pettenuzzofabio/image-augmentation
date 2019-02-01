@@ -2,43 +2,41 @@
 # -*- coding: UTF-8 -*-
 
 import math
-from random import randint
 
-import constants
+import constants as const
 import cv2
 import numpy as np
-from skimage import img_as_ubyte
+#from skimage import img_as_ubyte
 from skimage import transform as tf
 
-
-# those should be performed as last transformations,
-# after we have precisely detect our landmark in the original image
-# since they will significantly alter the image inner propritions
-
 def get_random_shear(image):
-	factor = __get_random_shear_direction(constants.MAX_SHEAR)
+	factor = __get_random_shear_direction(const.MAX_SHEAR)
 	return shear_image(image, factor)
 
 def __get_random_shear_direction(max_factor):
 	max_factor = abs(max_factor)
+	np.random.seed(const.SEED)
 	return np.random.uniform(-1 * max_factor, max_factor)
 
 def shear_image(image, factor):
 	# TODO: adjust factor to w/h proportion
 	h, w = image.shape[ : 2]
+	isImageRotated = False
 	if(h > w):
 		image = np.rot90(image)
 		isImageRotated = True
-	    	w = h
+		w = h
 
 	afine_tf = tf.AffineTransform(shear = factor)
-	modified = tf.warp(image, inverse_map = afine_tf, preserve_range=True).astype(np.uint8)
+	# cv2.INTER_NEAREST does not interpolate.
+	# Thid is essential for label transformation
+	modified = tf.warp(image, inverse_map = afine_tf, order = cv2.INTER_NEAREST, preserve_range = True).astype(np.uint8)
 
 	crop_factor = 0.7
 	if __get_shear_direction(factor):
 		modified = modified[ :, int(factor * w * crop_factor) : ]
 	else:
-		modified = modified[ :, : w-int(-1 * factor * w * crop_factor) ]
+		modified = modified[ :, : w - int(-1 * factor * w * crop_factor) ]
 
 	if isImageRotated:
 		return np.rot90(modified, 3)
@@ -48,8 +46,9 @@ def shear_image(image, factor):
 def __get_shear_direction(factor):
 	return factor > 0
 
-def get_random_skew(image, max_factor = constants.MAX_SKEW):
+def get_random_skew(image, max_factor = const.MAX_SKEW):
 	max_factor = abs(max_factor)
+	np.random.seed(const.SEED)
 	factor = np.random.uniform(-1 * max_factor, max_factor)
 	return skew_image(image, factor)
 
@@ -89,17 +88,20 @@ def skew_image(image, factor):
 				      	])
 
 	transform_matrix = cv2.getPerspectiveTransform(points1, points2)
-	return cv2.warpPerspective(image, transform_matrix, (w, h))
+	# cv2.INTER_NEAREST does not interpolate.
+	# Thid is essential for label transformation
+	return cv2.warpPerspective(image, transform_matrix, (w, h), flags = cv2.INTER_NEAREST)
 
-def get_random_warp(image, min_factor = constants.MIN_WARP, max_factor = constants.MAX_WARP):
-	factor = randint(min_factor, max_factor)
-	return warp_image(image, factor)
+def get_random_warp(image, min_factor = const.MIN_WARP, max_factor = const.MAX_WARP):
+	np.random.seed(const.SEED)
+	factor = np.random.randint(min_factor, max_factor)
+	return __warp_image(image, factor)
 
-def warp_image(image, factor):
+def __warp_image(image, factor):
 	h, w = image.shape[ : 2]
 	factor = __normalize_factor(factor, h, w)
 	x_center, y_center = __get_random_warp_center(factor, h, w)
-	wave_length = factor * 36 * randint(1, 4)
+	wave_length = factor * 36 * np.random.randint(1, 5)
 	warp_direction = np.random.choice(['X', 'Y', 'X_AND_Y'])
 	image_output = np.zeros(image.shape, dtype = image.dtype)
 
@@ -144,8 +146,8 @@ def __get_manhattan_distance(x, y, x_center, y_center):
 
 def __get_random_warp_center(factor, rows, cols):
 	max_warp_length = factor ** 2
-	x_center = randint(max_warp_length, cols - max_warp_length)
-	y_center = randint(max_warp_length, rows - max_warp_length)
+	x_center = np.random.randint(max_warp_length, cols - max_warp_length + 1)
+	y_center = np.random.randint(max_warp_length, rows - max_warp_length + 1)
 	return x_center, y_center
 
 def __get_offset(index, wave_intensity, wave_length):
