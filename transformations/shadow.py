@@ -3,16 +3,16 @@
 
 from random import randint
 
-import constants
-import noise
+import constants as const
+import transformations.noise
 import numpy as np
-import shadow_polygon as polygon
-import shadow_single as single
-import shadow_ellipse as ellipse
+import transformations.shadow_polygon as polygon
+import transformations.shadow_single as single
+import transformations.shadow_ellipse as ellipse
 
 
 def add_n_random_shadows(image, n_shadow  = 4, blur_scale = 1.0):
-	intensity = np.random.uniform(constants.MIN_SHADOW, constants.MAX_SHADOW)
+	intensity = np.random.uniform(const.MIN_SHADOW, const.MAX_SHADOW)
 	return add_n_shadows(image, n_shadow, intensity, blur_scale)
 
 def add_n_shadows(image, n_shadow = 4, intensity = 0.5, blur_scale = 1.0):
