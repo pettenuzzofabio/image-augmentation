@@ -1,59 +1,67 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-import errno
-import math
 import os
 import random
 
-import constants as const
 import cv2
 import numpy as np
+
+import constants as const
 import transformations.color as color
-import transformations.distort as distort
+import transformations.geometric.distort as distort
+import transformations.geometric.rotation as rotation
+import transformations.labels as labels
 import transformations.noise as noise
-import transformations.rotation as rotation
 import transformations.shadow as shadow
-from skimage import img_as_ubyte
-from skimage import transform as tf
 
 function_list = []
 
-def get_n_augmented_images(image, n_output_list = const.N_FILES_OUTPUT):
+def get_n_augmented_images_labels(image, labels_list, n_output_list = const.N_FILES_OUTPUT):
 	'''
-	Applies the transformations to the input image and returns a list of transformed images
+	Applies the transformations to the input image and returns
+	a list of transformed images along with the corresponding labels
 	:param image: image to be augmented
+	:param labels_list: labels associated to the image
 	:param n_output_list: number of images returned as output
-	:return list of transformed images
+	:return matrix of 2 arrays: list of transformed images and list of associated labels
 	'''
 	images_list = []
+	total_labels_list = []
 	for _ in range(n_output_list):
-		images_list.append(get_augmented_image(image))
+		image, labels_list = get_augmented_image_labels(image, labels_list)
+		images_list.append(image)
+		total_labels_list.append(labels_list)
 
-	return images_list
+	return [ images_list, labels_list ] # check if [] can be avoided
 
-def get_augmented_image(image):
+def get_augmented_image_labels(image, labels_list):
 	if not function_list :
 		__init_function_list()
 
 	# TODO: add multithreading
 	tmp_function_list = function_list[ : ]
 	for _ in range(const.N_TRANSFORMATIONS):
-		function = random.choice(tmp_function_list)
-		image = function(image)
-		tmp_function_list.remove(function)
+		# Max integer value for Python 2. Integers in Python 3 are unbounded
+		const.SEED = np.random.randint(2147483648)
+		transformation_function = random.choice(tmp_function_list)
+		transformed_image = transformation_function(image)
+		cv2.imwrite("C:\\Users\\pette\\Documents\\image-augmentator\\transformed_image.png", transformed_image)
+		transformed_labels = labels.get_transformed_labels(transformation_function, image.shape, labels_list)
+		tmp_function_list.remove(transformation_function)
 
-	return image
+	return transformed_image, transformed_labels
 
-def write_images(full_name, images_list, output_path):
+def write_output_files(full_name, images_labels, output_path):
 	name, extension = os.path.splitext(full_name)
 	prefix = output_path + "\\" + name
 
 	i = 0
-	for image in images_list:
+	for image, labels_list in images_labels:
 		output_name = prefix + str(i) + extension
 		try:
 			cv2.imwrite(output_name, image)
+			# todo: write labels
 		except:
 			try:
 				os.makedirs(output_path)
