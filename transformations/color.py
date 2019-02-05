@@ -3,11 +3,11 @@
 
 import random
 
-import transformations.channels
+import transformations.channels as channels
 import constants
 import cv2
 import numpy as np
-import transformations.shadow
+import transformations.shadow as shadow
 from PIL import ImageEnhance, Image
 
 
