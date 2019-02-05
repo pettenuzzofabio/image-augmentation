@@ -4,7 +4,7 @@
 from random import randint
 
 import constants as const
-import transformations.noise
+import transformations.noise as noise
 import numpy as np
 import transformations.shadow_polygon as polygon
 import transformations.shadow_single as single
