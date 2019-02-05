@@ -3,9 +3,9 @@
 
 from random import randint
 
-import transformations.channels
+import transformations.channels as channels
 import cv2
-import transformations.noise
+import transformations.noise as noise
 import numpy as np
 
 
