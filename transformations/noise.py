@@ -3,7 +3,7 @@
 
 from random import randint
 
-import constants
+import constants as const
 import cv2
 import numpy as np
 
@@ -24,14 +24,14 @@ def add_n_random_blur(image, n=randint(1, 4)):
 
 
 def add_random_blur(image):
-    max_blur = constants.MAX_BLUR
+    max_blur = const.MAX_BLUR
     max_dimension = max(image.shape)
     if max_dimension < 2000 and max_blur > 2:
         max_blur -= 1
         if max_dimension < 1000 and max_blur > 1:
             max_blur -= 1
 
-    intensity = randint(constants.MIN_BLUR, max_blur)
+    intensity = randint(const.MIN_BLUR, max_blur)
     return blur(image, width=intensity)
 
 
@@ -53,7 +53,7 @@ def get_blur_given_intensity(intensity, blur_scale):
 
 
 def add_random_gauss_noise(image):
-    intensity = randint(constants.MIN_GAUSS_NOISE, constants.MAX_GAUSS_NOISE)
+    intensity = randint(const.MIN_GAUSS_NOISE, const.MAX_GAUSS_NOISE)
     return get_gauss_noise(image, intensity)
 
 
@@ -85,13 +85,13 @@ def __get_normalized_image(image):
 
 
 def add_random_saltpepper_noise(image):
-    intensity = np.random.uniform(constants.MIN_SALT_PEPPER_NOISE,
-                                  constants.MAX_SALTPEPPER_NOISE)
+    intensity = np.random.uniform(const.MIN_SALT_PEPPER_NOISE,
+                                  const.MAX_SALTPEPPER_NOISE)
     return get_saltpepper_noise(image, intensity)
 
 
 # tip: use it as first transformation, apply other noises afterwards
-def get_saltpepper_noise(image, intensity=0.0001, add_blur=constants.ADD_BLUR_AFTER_SP_NOISE):
+def get_saltpepper_noise(image, intensity=0.0001, add_blur=const.ADD_BLUR_AFTER_SP_NOISE):
     s_vs_p = 0.5
     saltpepper = np.copy(image)
     num_salt = np.ceil(intensity * image.size * s_vs_p)
@@ -112,12 +112,12 @@ def __get_coordinates_saltpepper(image, num_salt):
 
 
 def get_random_speckle_noise(image):
-    intensity = np.random.uniform(constants.MIN_SPECKLE_NOISE, constants.MAX_SPECKLE_NOISE)
+    intensity = np.random.uniform(const.MIN_SPECKLE_NOISE, const.MAX_SPECKLE_NOISE)
     return get_speckle_noise(image, intensity)
 
 
 # tip: use it as first transformation, apply other noises afterwards
-def get_speckle_noise(image, intensity=0.1, add_blur=constants.ADD_BLUR_AFTER_SPECKLE_NOISE):
+def get_speckle_noise(image, intensity=0.1, add_blur=const.ADD_BLUR_AFTER_SPECKLE_NOISE):
     intensity *= 127.5
 
     # -intensity/2 <= speckle <= intensity/2
