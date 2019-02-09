@@ -26,50 +26,29 @@ def get_n_augmented_images_labels(image, labels_list, n_output_list = const.N_FI
 	:param n_output_list: number of images returned as output
 	:return matrix of 2 arrays: list of transformed images and list of associated labels
 	'''
-	images_list = []
-	total_labels_list = []
+	total_images_labels_list = []
 	for _ in range(n_output_list):
-		image, labels_list = get_augmented_image_labels(image, labels_list)
-		images_list.append(image)
-		total_labels_list.append(labels_list)
+		transformed_image, labels_list = get_augmented_single_image_labels(image, labels_list)
+		total_images_labels_list.append([transformed_image, labels_list])
 
-	return [ images_list, labels_list ] # check if [] can be avoided
+	return total_images_labels_list
 
-def get_augmented_image_labels(image, labels_list):
+def get_augmented_single_image_labels(image, labels_list):
 	if not function_list :
 		__init_function_list()
 
-	# TODO: add multithreading
+	# TODO: add multithreading, yield images and labels so that they are written to disk / returned as they are produced
+	# this solves memory issues when dealing with many images/transformtions
 	tmp_function_list = function_list[ : ]
 	for _ in range(const.N_TRANSFORMATIONS):
-		# Max integer value for Python 2. Integers in Python 3 are unbounded
-		const.SEED = np.random.randint(2147483648)
+		const.SEED = np.random.randint(const.MAX_RANDOM)
 		transformation_function = random.choice(tmp_function_list)
-		transformed_image = transformation_function(image)
-		cv2.imwrite("C:\\Users\\pette\\Documents\\image-augmentator\\transformed_image.png", transformed_image)
-		transformed_labels = labels.get_transformed_labels(transformation_function, image.shape, labels_list)
+		image = transformation_function(image)
+		labels_list = labels.get_transformed_labels(transformation_function, image.shape, labels_list)
 		tmp_function_list.remove(transformation_function)
 
-	return transformed_image, transformed_labels
+	return image, labels_list
 
-def write_output_files(full_name, images_labels, output_path):
-	name, extension = os.path.splitext(full_name)
-	prefix = output_path + "\\" + name
-
-	i = 0
-	for image, labels_list in images_labels:
-		output_name = prefix + str(i) + extension
-		try:
-			cv2.imwrite(output_name, image)
-			# todo: write labels
-		except:
-			try:
-				os.makedirs(output_path)
-				cv2.imwrite(output_name, image)
-			except:
-				raise
-
-		i += 1
 
 def __init_function_list():
 	t = const.MaxTransformation
