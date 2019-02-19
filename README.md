@@ -6,8 +6,8 @@ We all know that deep learning models are data hungry. They thrive when given to
 This data augmentation tool enlarges your dataset of pictures by generating multiple version of each image.\
 It helps you getting more data, if... well you don't actually have "more data".
 
-- Input: photos or scan of documents, certificates, invoices, pages, receipts...
-- Output: simulation of different lighting conditions, slight changes of perspective, minor crumples and warps
+- Input: photos or scan of documents, certificates, invoices, pages, receipts... [ + labels in YOLO format ]
+- Output: simulation of different lighting conditions, slight changes of perspective, minor crumples and warps [ + transformed labels in YOLO format ]
 
 I've tested it with YOLO v3 object detection algorithm, based on the darknet CNN, but it works also on other convolutional neural networks, hopefully improving their performance and reducing overfitting.
 
@@ -63,7 +63,19 @@ optional arguments:
 ```
   
 e.g. `python main.py --input /path/to/input/folder/ --output /path/to/output/folder/ --n 5`
-  
+
+### Labels format
+
+The labels should be formatted according to the YOLO / darknet format:
+
+```
+class_number box1_x1_ratio box1_y1_ratio box1_width_ratio box1_height_ratio
+class_number box2_x1_ratio box2_y1_ratio box2_width_ratio box2_height_ratio
+....
+```
+
+An example is provided at ``` input/test.txt ```
+
 ### Integration in external projects
 
 If you want to integrate this code in your Machine Learning project

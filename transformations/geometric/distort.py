@@ -3,20 +3,23 @@
 
 import math
 
-import constants as const
 import cv2
 import numpy as np
-#from skimage import img_as_ubyte
 from skimage import transform as tf
+
+import constants as const
+
 
 def get_random_shear(image):
 	factor = __get_random_shear_direction(const.MAX_SHEAR)
 	return shear_image(image, factor)
 
+
 def __get_random_shear_direction(max_factor):
 	max_factor = abs(max_factor)
 	np.random.seed(const.SEED)
 	return np.random.uniform(-1 * max_factor, max_factor)
+
 
 def shear_image(image, factor):
 	# TODO: adjust factor to w/h proportion
@@ -43,14 +46,17 @@ def shear_image(image, factor):
 
 	return modified
 
+
 def __get_shear_direction(factor):
 	return factor > 0
+
 
 def get_random_skew(image, max_factor = const.MAX_SKEW):
 	max_factor = abs(max_factor)
 	np.random.seed(const.SEED)
 	factor = np.random.uniform(-1 * max_factor, max_factor)
 	return skew_image(image, factor)
+
 
 def skew_image(image, factor):
 	factor = abs(factor) * -1
@@ -92,10 +98,12 @@ def skew_image(image, factor):
 	# Thid is essential for label transformation
 	return cv2.warpPerspective(image, transform_matrix, (w, h), flags = cv2.INTER_NEAREST)
 
+
 def get_random_warp(image, min_factor = const.MIN_WARP, max_factor = const.MAX_WARP):
 	np.random.seed(const.SEED)
 	factor = np.random.randint(min_factor, max_factor)
 	return __warp_image(image, factor)
+
 
 def __warp_image(image, factor):
 	h, w = image.shape[ : 2]
@@ -141,8 +149,10 @@ def __normalize(value, max_value, min_value = 0):
 		return max_value
 	return value
 
+
 def __get_manhattan_distance(x, y, x_center, y_center):
 	return abs(x - x_center) + abs(y - y_center)
+
 
 def __get_random_warp_center(factor, rows, cols):
 	max_warp_length = factor ** 2
@@ -150,14 +160,17 @@ def __get_random_warp_center(factor, rows, cols):
 	y_center = np.random.randint(max_warp_length, rows - max_warp_length + 1)
 	return x_center, y_center
 
+
 def __get_offset(index, wave_intensity, wave_length):
 	return int(wave_intensity * math.sin(2 * 3.14 * index / wave_length))
+
 
 def __normalize_factor(factor, rows, cols):
 	while (factor ** 2) * 2 > rows or (factor ** 2) * 2 > cols:
 		factor = int(factor / 2)
 
 	return factor
+
 
 def __get_wave_intensity(distance, factor):
 	for i in range(1, factor):

@@ -14,6 +14,7 @@ def add_n_triangles_light(image, intensity = 0.5, blur_width = 6, n = 1):
 	inverted_shadow = add_n_triangles_shadow(inverted_colors, intensity, blur_width, n)
 	return const.WHITE - inverted_shadow
 
+
 def add_n_triangles_shadow(image, intensity = 0.5, blur_width = 6, n = 1):
 	for i in range(n):
 		image = add_polygon_shadow(image,
@@ -23,6 +24,7 @@ def add_n_triangles_shadow(image, intensity = 0.5, blur_width = 6, n = 1):
 					   )
 
 	return image
+
 
 # tip: just stick with triangles, other polygons have incoherent shades
 def add_polygon_light(image, n_sides = 3, intensity = 0.5, blur_width = 6):
@@ -61,6 +63,7 @@ def add_polygon_shadow(image, n_sides = 3, intensity = 0.5, blur_width = 6):
 
 	return mask.apply_shadow_mask(image, blur_width, intensity, shadow_mask)
 
+
 def __get_points(n_sides, image):
 	points = []
 	h, w = image.shape[:2]
@@ -73,15 +76,18 @@ def __get_points(n_sides, image):
 	points = points.reshape((-1, 1, 2))
 	return points
 
+
 def __scale_points(points, centre, scale):
 	for p in points:
 		__scale_point(p[0], centre, scale = scale + np.random.uniform()/2)
 
 	return points
 
+
 def __scale_point(point, centre, scale = 0.1):
 	point[0] = int(round(centre[0] + (point[0] - centre[0]) * scale))
 	point[1] = int(round(centre[1] + (point[1] - centre[1]) * scale))
+
 
 def __get_centre(points):
 	sum_points = sum(points[1:], points[0])[0]
@@ -90,6 +96,7 @@ def __get_centre(points):
 		__get_average(n_points, sum_points[0]),
 		__get_average(n_points, sum_points[1]),
 		)
+
 
 def __get_average(n_points, sum):
 	return int(round(sum / n_points))

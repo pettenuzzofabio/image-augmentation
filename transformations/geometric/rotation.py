@@ -3,9 +3,10 @@
 
 import math
 
-import constants as const
 import cv2
 import numpy as np
+
+import constants as const
 
 
 def get_random_rotation(image, max_angle = const.MAX_ANGLE):
@@ -13,6 +14,7 @@ def get_random_rotation(image, max_angle = const.MAX_ANGLE):
 	np.random.seed(const.SEED)
 	angle = np.random.uniform(-1*max_angle, max_angle)
 	return __rotate_image_crop_borders(image, angle)
+
 
 def __rotate_image_crop_borders(image, rad_angle):
 	h, w = image.shape[ : 2]

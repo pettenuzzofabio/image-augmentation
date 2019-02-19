@@ -3,12 +3,13 @@
 
 import random
 
-import transformations.channels as channels
-import constants
 import cv2
 import numpy as np
-import transformations.shadow as shadow
 from PIL import ImageEnhance, Image
+
+import constants
+import transformations.channels as channels
+import transformations.shadow as shadow
 
 
 def get_enhanced_image(image, enhancement = None):
@@ -40,6 +41,7 @@ def get_enhanced_image(image, enhancement = None):
 	enhanced = enhancer.enhance(factor)
 	return np.array(enhanced)
 
+
 def random_color_shade(image, channels_format = None):
 	if channels_format == None:
 		channels_format = constants.Channels.get_random()
@@ -59,15 +61,18 @@ def random_color_shade(image, channels_format = None):
 
 	return image
 
+
 def change_random_channel_gray(image, intensity = 0.2):
 	image = change_random_bgrchannel(image, intensity)
 	return channels.get_gray_image(image)
+
 
 def change_random_bgrchannel(image, intensity = 0.2):
 	b, g, r = channels.get_bgr_channels(image)
 	channel_choice = random.randint(1, 3)
 	n_shadow = random.randint(1, 4)
 	return __change_channel(channel_choice, intensity, n_shadow, b, g, r)
+
 
 # makes senses only with color images
 def change_random_hsvchannel(image, intensity = 0.2):
@@ -83,6 +88,7 @@ def change_random_hsvchannel(image, intensity = 0.2):
 
 	return cv2.cvtColor(image, cv2.COLOR_HSV2BGR)
 
+
 # makes senses only with color images
 def change_random_hlschannel(image, intensity = 0.2):
 	h, l, s = channels.get_hls_channels(image)
@@ -94,6 +100,7 @@ def change_random_hlschannel(image, intensity = 0.2):
 	image = __change_channel(channel_choice, intensity, n_shadow, h, l, s)
 
 	return cv2.cvtColor(image, cv2.COLOR_HLS2BGR)
+
 
 def __change_channel(channel_choice, intensity, n_shadow, channel_1, channel_2,  channel_3):
 	blur_scale = 1.2
