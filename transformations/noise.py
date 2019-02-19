@@ -3,9 +3,10 @@
 
 from random import randint
 
-import constants as const
 import cv2
 import numpy as np
+
+import constants as const
 
 
 def add_n_random_blur(image, n=randint(1, 4)):
@@ -100,6 +101,7 @@ def get_saltpepper_noise(image, intensity=0.0001, add_blur=const.ADD_BLUR_AFTER_
     num_pepper = np.ceil(intensity * image.size * (1. - s_vs_p))
     coords = __get_coordinates_saltpepper(image, num_pepper)
     saltpepper[coords] = 0
+
     if add_blur:
         return blur(saltpepper, width=1)
 
