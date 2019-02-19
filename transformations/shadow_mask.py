@@ -20,9 +20,11 @@ def apply_shadow_mask(image, blur_width, intensity, shadow_mask):
 
 	return __apply_mask_to_channel(image, shadow_mask)
 
+
 def __apply_mask_to_channel(image, shadow_mask):
 	image = np.multiply(image, shadow_mask)
 	return image.astype(np.uint8)
+
 
 def __normalize_shadow_mask(blur_width, intensity, shadow_mask):
 	shadow_mask = noise.blur(shadow_mask, blur_width)

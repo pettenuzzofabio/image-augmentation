@@ -11,7 +11,9 @@ import transformations.shadow_mask as mask
 def add_single_light(image, intensity = 0.5, blur_width = 8):
 	inverted_colors = const.WHITE - image
 	inverted_shadow = add_single_shadow(inverted_colors, intensity, blur_width)
+
 	return const.WHITE - inverted_shadow
+
 
 def add_single_shadow(image, intensity = 0.5, blur_width = 8):
 	h, w = image.shape[ : 2]
@@ -116,11 +118,14 @@ def add_single_shadow(image, intensity = 0.5, blur_width = 8):
 
 	return mask.apply_shadow_mask(image, blur_width, intensity, shadow_mask)
 
+
 def __get_mask_condition(bot_x, bot_y, top_x, top_y, x_m, y_m):
 	return (x_m - top_x) * (bot_y - top_y) - (bot_x - top_x) * (y_m - top_y)
 
+
 def __get_random_number(number):
 	return number * np.random.uniform()
+
 
 def __get_random_space(space):
 	return space + space * np.random.uniform()
