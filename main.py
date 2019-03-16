@@ -43,12 +43,12 @@ def __parse_arguments():
     parser.add_argument(
         '--output', nargs='?', type=str,
         default=str(os.path.abspath(constants.FILES_OUTPUT_PATH)),
-        help='output files path, default: ' + str(constants.FILES_OUTPUT_PATH)
+        help = 'output files path, default: ' + str(constants.FILES_OUTPUT_PATH)
     )
 
     parser.add_argument(
         '--n', nargs='?', type=int, default=constants.N_FILES_OUTPUT,
-        help='number of output images for each input image, default: ' +
+        help = 'number of output images for each input image, default: ' +
              str(constants.N_FILES_OUTPUT)
     )
 
