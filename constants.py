@@ -8,7 +8,7 @@ from enum import Enum
 ### CONSTANTS MEANT TO BE EDITED ###
 
 # default number of files given as output for each input image
-N_FILES_OUTPUT      = 200
+N_FILES_OUTPUT      = 100
 
 # allowed input images extensions
 IMAGE_EXTENSIONS = [".jpg",
@@ -40,11 +40,11 @@ If N_TRANSFORMATIONS > total number of transformations
 specified in the MaxTransformation field
 N_TRANSFORMATIONS will be reset as sum_MaxTransformation_fields
 '''
-N_TRANSFORMATIONS       = 1
+N_TRANSFORMATIONS       = 3
 
 '''
 MaxTransformation contains, for each transformation,
-the number of times that each transformation is performed.
+the maximum number of times that each transformation is performed.
 Useful to apply some transformations more often ( n > 1 )
 or to exclude them` altogether ( n = 0 )
 '''
@@ -118,8 +118,8 @@ MAX_ANGLE               = 0.02
 
 # By default salt&pepper and speckle noise
 # is followed by blurring
-ADD_BLUR_AFTER_SPECKLE_NOISE    = False
-ADD_BLUR_AFTER_SP_NOISE         = False
+ADD_BLUR_AFTER_SPECKLE_NOISE    = True
+ADD_BLUR_AFTER_SP_NOISE         = True
 
 READ_IMAGE_AS_GRAYSCALE         = False
 
