@@ -21,15 +21,15 @@ def generate_n_augmented_images_labels(image, labels_list, n_output_list = const
 	a generator of transformed images along with the corresponding labels
 	:param image: image to be augmented
 	:param labels_list: labels associated to the image
-	:param n_output_list: number of images returned as output
+	:param n_output_list: number of images and labels returned as output
 	:return a generator of: list of transformed images and list of associated labels
 	'''
 	for _ in range(n_output_list):
-		transformed_image, transformed_labels_list = get_augmented_single_image_labels(image, labels_list)
+		transformed_image, transformed_labels_list = __get_augmented_single_image_labels(image, labels_list)
 		yield [transformed_image, transformed_labels_list]
 
 
-def get_augmented_single_image_labels(image, labels_list):
+def __get_augmented_single_image_labels(image, labels_list):
 	if not function_list:
 		__init_function_list()
 
