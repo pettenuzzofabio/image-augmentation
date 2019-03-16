@@ -117,6 +117,9 @@ FILES_OUTPUT_PATH = "./output/"
 ```
 
 ```python
+
+
+
 '''
 max number of transformations
 that are randomly applied for each output image.
