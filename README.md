@@ -1,7 +1,5 @@
 # Image augmentation
 
-Image dataset augmentation for machine learning projects.
-
 We all know that deep learning models are data hungry. They thrive when given tons of training examples.\
 This data augmentation tool enlarges your dataset of pictures by generating multiple version of each image.\
 It helps you getting more data, if... well you don't actually have "more data".
@@ -82,20 +80,22 @@ If you want to integrate this code in your Machine Learning project
 - `import augment` (specify the relative path of `augment.py` with respect to the file from which you're importing it)
 - invoke the function 
 ```python
-def get_n_augmented_images(image, n_output_list = constants.N_FILES_OUTPUT)
+def generate_n_augmented_images_labels(image, labels_list, n_output_list = const.N_FILES_OUTPUT):
 	'''
-	Applies the transformations to the input image and returns a list of transformed images
+	Applies the transformations to the input image and returns
+	a generator of transformed images along with the corresponding labels
 	:param image: image to be augmented
-	:param n_output_list: number of images returned as output
-	:return list of transformed images
+	:param labels_list: labels associated to the image
+	:param n_output_list: number of images and labels returned as output
+	:return a generator of: list of transformed images and list of associated labels
 	'''
 ```
 
 or, as an alternative, you can directly call the functions in the package `transformations`, e.g.:
-- `import transformations.distort` (specify the relative path of `distort.py` with respect to the file from which you're importing it)
+- `import transformations.shadow` (specify the relative path of `distort.py` with respect to the file from which you're importing it)
 - invoke the function 
 ```python
-get_random_warp(image, min_factor = constants.MIN_WARP, max_factor = constants.MAX_WARP)
+add_n_shadows(image, n_shadow = 4, intensity = 0.5, blur_scale = 1.0):
 ```
 
 ### Edit parameters
@@ -104,16 +104,16 @@ In the file `constants.py` there are several parameters that can be tuned to bet
 
 ```python
 # default number of files given as output for each input image
-N_FILES_OUTPUT    = 20
+N_FILES_OUTPUT		= 100
 
 # allowed input images extensions
-IMAGE_EXTENSIONS  = [ ".jpg", ".jpeg", ".png", ".bmp", ".jp2", ".dib", ".webp", ".sr", ".ras", ".tiff", ".tif", ".pbm", ".pgm", ".ppm" ]
+IMAGE_EXTENSIONS	= [ ".jpg", ".jpeg", ".png", ".bmp", ".jp2", ".dib", ".webp", ".sr", ".ras", ".tiff", ".tif", ".pbm", ".pgm", ".ppm" ]
 
-# default input images path
-FILES_INPUT_PATH  = "./input/"
+# default input files path
+FILES_INPUT_PATH	= "./input/"
 
-# default output images path
-FILES_OUTPUT_PATH = "./output/"
+# default output files path
+FILES_OUTPUT_PATH	= "./output/"
 ```
 
 ```python
@@ -124,98 +124,97 @@ FILES_OUTPUT_PATH = "./output/"
 max number of transformations
 that are randomly applied for each output image.
 If N_TRANSFORMATIONS > total number of transformations
-specified in the MaxTransformations field
-N_TRANSFORMATIONS will be reset as:
-min( sum_MaxTransformations_fields, N_TRANSFORMATIONS) )
+specified in the MaxTransformation field
+N_TRANSFORMATIONS will be reset as sum_MaxTransformation_fields
 '''
-N_TRANSFORMATIONS = 2
+N_TRANSFORMATIONS	= 3
 
 '''
-MaxTransformations contains, for each transformation,
-the number of times that each transformation is performed.
+MaxTransformation contains, for each transformation,
+the maximum number of times that each transformation is performed.
 Useful to apply some transformations more often ( n > 1 )
 or to exclude them` altogether ( n = 0 )
 '''
-class MaxTransformations:
-    SALT_PEPPER_NOISE   = 0
-    SPECKLE_NOISE       = 0
-    GAUSS_NOISE         = 0
 
-    BLUR                = 0
-    SHADOW              = 0
-    ENHANCEMENTS        = 0
-    SHADE_COLORS        = 0
+
+class MaxTransformation:
+    SALT_PEPPER_NOISE   = 1
+    SPECKLE_NOISE       = 1
+    GAUSS_NOISE         = 1
+    BLUR                = 1
+
+    SHADOW              = 1
+    ENHANCEMENTS        = 1
+    SHADE_COLOR         = 1
 
     # The following transformations
     # will alter pixel coordinates
-    SHEAR               = 0
-    SKEW                = 0
-    WARP                = 0
+    SHEAR               = 1
+    SKEW                = 1
+    WARP                = 1
     ROTATION            = 1
 
 # MIN/MAX AVG BLURRING
-MIN_BLUR 		= 1
-MAX_BLUR 		= 3
+MIN_BLUR                = 1
+MAX_BLUR                = 3
 
 # MIN/MAX GAUSS NOISE
-MIN_GAUSS_NOISE 	= 1
-MAX_GAUSS_NOISE 	= 100
+MIN_GAUSS_NOISE         = 1
+MAX_GAUSS_NOISE         = 100
 
 # MIN/MAX SALT AND PEPPER NOISE
-MIN_SALT_PEPPER_NOISE 	= 0.0001
-MAX_SALTPEPPER_NOISE 	= 0.001
+MIN_SALT_PEPPER_NOISE   = 0.0001
+MAX_SALTPEPPER_NOISE    = 0.001
 
 # MIN/MAX SPECKLE
-MIN_SPECKLE_NOISE 	= 0.01
-MAX_SPECKLE_NOISE 	= 0.3
+MIN_SPECKLE_NOISE       = 0.01
+MAX_SPECKLE_NOISE       = 0.3
 
 # MIN/MAX SHADOW
-MIN_SHADOW       	= 0.3
-MAX_SHADOW       	= 0.7
+MIN_SHADOW              = 0.3
+MAX_SHADOW              = 0.7
 
 # MIN/MAX IMAGE BRIGHTNESS
-MIN_BRIGHTNESS   	= 0.6
-MAX_BRIGHTNESS   	= 1.4
+MIN_BRIGHTNESS          = 0.6
+MAX_BRIGHTNESS          = 1.4
 
 # MIN/MAX IMAGE CONTRAST
-MIN_CONTRAST   	        = 0.5
-MAX_CONTRAST   	        = 1.7
+MIN_CONTRAST            = 0.5
+MAX_CONTRAST            = 1.7
 
 # MIN/MAX IMAGE SHARPNESS
-MIN_SHARPNESS   	= 0.1
-MIN_SHARPNESS   	= 5.0
+MIN_SHARPNESS           = 0.1
+MAX_SHARPNESS           = 5.0
 
 # MIN/MAX COLOR SHADING
-MIN_COLOR_SHADE 	= 0.06
-MAX_COLOR_SHADE 	= 0.35
+MIN_COLOR_SHADE         = 0.06
+MAX_COLOR_SHADE         = 0.35
 
 # MAX SHEAR DISTORTION
-MAX_SHEAR        	= 0.05
+MAX_SHEAR               = 0.05
 
 # MAX SKEW DISTORTION
-MAX_SKEW        	= 0.05
+MAX_SKEW                = 0.05
 
 # MIN/MAX WARP DISTORTION
-MIN_WARP        	= 14
-MAX_WARP        	= 50
+MIN_WARP                = 14
+MAX_WARP                = 51
 
 # MIN/MAX ROTATION ANGLE
-MAX_ANGLE        	= 0.02
+MAX_ANGLE               = 0.02
 
-# By default s&p and speckle noise
+# By default salt&pepper and speckle noise
 # is followed by blurring
-ADD_BLUR_AFTER_SPECKLE_NOISE = False
-ADD_BLUR_AFTER_SP_NOISE      = False
+ADD_BLUR_AFTER_SPECKLE_NOISE    = True
+ADD_BLUR_AFTER_SP_NOISE         = True
 
-READ_IMAGE_AS_GRAYSCALE = False
+READ_IMAGE_AS_GRAYSCALE         = False
 ```
 
 
 
 ## Future developments
 
-- Augment bounding boxes (and possibly other landmarks) in the exact same way as the augmented image, in order to better use transformations which alter pixel coordinates.
-This can be accomplished by using `random.seed()`
 - Add centered scaling
 - Optimize & add multi threading
 - Image flip: this hasn't been implemented yet because for my purpose I need to distinguish between Left-something and Right-something
