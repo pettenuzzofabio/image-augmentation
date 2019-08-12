@@ -133,7 +133,7 @@ N_TRANSFORMATIONS	= 3
 MaxTransformation contains, for each transformation,
 the maximum number of times that each transformation is performed.
 Useful to apply some transformations more often ( n > 1 )
-or to exclude them` altogether ( n = 0 )
+or to exclude them altogether ( n = 0 )
 '''
 
 
