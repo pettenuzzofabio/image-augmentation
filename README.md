@@ -35,16 +35,11 @@ I've tested it with YOLO v3 object detection algorithm, based on the darknet CNN
 
 - Python >= 2.7
 
-Required packages:
-- Pillow
-- enum34
-- numpy
-- opencv-python
-- six
-- scipy
-- scikit-image
+To install the requirements run:
+```
+pip install -r requirements.txt
+```
 
-OpenCV has to be manually installed. The other packages can be installed  with `pip install [package_name]`\
 Please let me know if you find missing dependencies.
 
 ### Command line
@@ -218,4 +213,3 @@ READ_IMAGE_AS_GRAYSCALE         = False
 - Add centered scaling
 - Optimize & add multi threading
 - Image flip: this hasn't been implemented yet because for my purpose I need to distinguish between Left-something and Right-something
-- Add requirements.txt
