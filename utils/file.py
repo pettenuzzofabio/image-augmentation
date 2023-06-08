@@ -37,7 +37,7 @@ def read_image(image_full_name):
 def read_labels(path, image_name):
     name, _extension = os.path.splitext(image_name)
     try:
-        labels_file = open(path + "\\" + name + ".txt", "r")
+        labels_file = open(os.path.join(path, name + ".txt"), "r")
         lines = labels_file.readlines()
     except:
         print("The label file " + name + ".txt does not exist. Labels won't be transformed for the image " + image_name)
@@ -61,7 +61,7 @@ def _extract_labels_from_lines(lines):
 
 def write_output_files(full_name, images_and_labels, output_path):
     name, extension = os.path.splitext(full_name)
-    prefix = output_path + "\\" + name
+    prefix = os.path.join(output_path, name)
 
     i = 0
 
