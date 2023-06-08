@@ -1,0 +1,7 @@
+Pillow
+enum34
+numpy
+opencv-python
+six
+scipy
+scikit-image
