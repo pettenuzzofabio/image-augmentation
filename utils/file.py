@@ -17,8 +17,8 @@ def get_files_path(path):
 
     files_path = []
     if os.path.isdir(path):
-        files_path.extend([path + "\\" + f for f in listdir(path)
-                           if validation.is_valid_file(join(path, f))])
+        files_path.extend([os.path.join(path, f) for f in os.listdir(path)
+                           if validation.is_valid_file(os.path.join(path, f))])
 
     else:
         files_path.extend([path])
